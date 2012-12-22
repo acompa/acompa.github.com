@@ -1,135 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Witty Math Title Here]]></title>
-  <link href="http://acompa.github.com/atom.xml" rel="self"/>
-  <link href="http://acompa.github.com/"/>
-  <updated>2012-12-21T19:24:11-05:00</updated>
-  <id>http://acompa.github.com/</id>
-  <author>
-    <name><![CDATA[Alejandro Companioni]]></name>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency - Witty Math Title Here</title>
+  <meta name="author" content="Alejandro Companioni">
+
+  
+  <meta name="description" content="This post is reproduced from Knewton&#8217;s tech blog, where I posted it a few months ago. Imagine for a second that you’re teaching a math &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://acompa.github.com/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Witty Math Title Here" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Witty Math Title Here</a></h1>
+  
+    <h2>Learning about machine learning and statistics, one mistake at a time.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:acompa.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
     
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+      <h1 class="entry-title">Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
 
   
-  <entry>
-    <title type="html"><![CDATA[Presenting leptoid at Surge 2012]]></title>
-    <link href="http://acompa.github.com/blog/2012/10/05/presenting-leptoid-at-surge-2012/"/>
-    <updated>2012-10-05T17:11:00-04:00</updated>
-    <id>http://acompa.github.com/blog/2012/10/05/presenting-leptoid-at-surge-2012</id>
-    <content type="html"><![CDATA[<p>I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code instrumentation, and server management and deployment, and I recently presented about what I learned at <a href="http://omniti.com/surge/2012">Surge Conference 2012</a>.</p>
-
-<p>The talk focused on instrumentation more than anything else, and you can check out the slides <a href="https://www.dropbox.com/s/7wcaj6c892we2n5/Autoscaling%20with%20Leptoid-Final.pdf">here</a>. If capacity planning sounds interesting, we also open-sourced leptoid &#8211; the autoscaling library I worked on &#8211; so that you could review the source on <a href="https://github.com/knewton/leptoid">Github</a>.</p>
-
-<p>I also had a chance to speak with two excellent guys, Nathan Harvey and Dave Zwieback, for <a href="http://foodfightshow.org/2012/09/surge-update-knewton.html">an interview</a> on Food Fight. During that interview I talked about my Surge presentation and experiences as a junior engineer at Knewton.</p>
-
-<p>During my talk I mentioned the unimportance of a good capacity forecasting model relative to good instrumentation and deployment practices. This was revelatory. I actually spent the majority of my summer outside of my machine learning &amp; statistical wheelhouse, instead working on this autoscaling project with Knewton&#8217;s systems team. Lots of time went into</p>
-
-<ul>
-<li>instrumenting code with <a href="https://github.com/etsy/statsd">statsd</a> and Coda Hale&#8217;s <a href="https://github.com/codahale/metrics">metrics</a></li>
-<li>managing a cluster of <a href="https://github.com/graphite-project">Graphite</a> hosts</li>
-<li>fumbling around with <a href="http://www.opscode.com/chef/">Chef</a></li>
-</ul>
 
 
-<p>That list of items looks really obnoxious, I know, but I don&#8217;t want to forget about them. I simultaneously studied operating systems at NYU during this project, and have a list of topics I&#8217;d like to dig into once things slow down:</p>
-
-<ul>
-<li>scheduling and thread prioritization (beyond aging and &#8220;NRU&#8221; scheduling algorithms)</li>
-<li>networking, especially DNS lookups and comparisons between proxies</li>
-<li>sharding (or distributed storage, especially w.r.t something like HDFS)</li>
-<li>kernel v. user modes, and how they work in practice</li>
-</ul>
+<time datetime="2012-07-20T18:43:00-04:00" pubdate data-updated="true">Jul 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-<p>Either way, I feel like a better developer after this summer. It was an excellent experience, and Dave and Peter Norton (who really needs to get on Twitter or Pinterest or something) were excellent mentors.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Installing R and rpy2 from scratch]]></title>
-    <link href="http://acompa.github.com/blog/2012/09/07/installing-r-and-rpy2-from-scratch/"/>
-    <updated>2012-09-07T18:40:00-04:00</updated>
-    <id>http://acompa.github.com/blog/2012/09/07/installing-r-and-rpy2-from-scratch</id>
-    <content type="html"><![CDATA[<p>Python has seen a bit of an explosion in packages for statistics, machine learning, and data structures to support the two. Between <a href="pandas.pydata.org">pandas</a>, <a href="statsmodels.sourceforge.net">statsmodels</a>, <a href="scikit-learn.org">scikit-learn</a>, and <a href="http://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a> Python developers now have a miniature data stack for econometrics, machine learning algorithms, or statistics, as well as sensible data structures with tons of convenience functions.</p>
-
-<p>Still, those packages may not provide <em>everything</em> you need to get the job done. If, like me, you&#8217;re a Python dev analyzing some time series data, you might need to visit <a href="r-project.org">an old friend</a> with excellent, full-featured statistical packages like <a href="http://cran.r-project.org/web/packages/caret/index.html">caret</a> and <a href="http://robjhyndman.com/software/forecast/">forecast</a>.</p>
-
-<p>You&#8217;ll be happy to know that, with <a href="http://rpy.sourceforge.net/rpy2.html">rpy2</a>, you can have your cake and eat it too. Installing rpy2 can be painful, however, especially if you&#8217;re working with EC2 instances on Amazon Web Services. New instances contain little or no GNU tools, making an R + rpy2 installation harder than</p>
-
-<pre><code>sudo apt-get install r-base r-base-dev python-dev python-setuptools
-sudo easy_install pip
-for pkg in numpy scipy rpy2; do
-    sudo pip install pkg
-done
-</code></pre>
-
-<p>I&#8217;ve attached a script below to help devs get past this problem. It has been tested to work on Ubuntu 11.10, and I don&#8217;t expect any compatibility issues with newer versions.</p>
-
-<p><a href="https://gist.github.com/3700827">Here&#8217;s a Gist</a> with the script. If you run into issues, please let me know and I&#8217;ll try to fix them and update the script.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Sleeplessness &amp;rarr; bad code]]></title>
-    <link href="http://acompa.github.com/blog/2012/08/03/sleeplessness-bad-code/"/>
-    <updated>2012-08-03T18:42:00-04:00</updated>
-    <id>http://acompa.github.com/blog/2012/08/03/sleeplessness-bad-code</id>
-    <content type="html"><![CDATA[<p>David Smith recently pushed out <a href="http://developingperspective.com/2012/08/02/70/">an excellent episode</a> of his &#8220;Developing Perspectives&#8221; podcast. In it, he discusses the importance of rest, especially as it relates to the quality of a developer&#8217;s work.</p>
-
-<p>A big product launch at Knewton and a semester-long OS class compressed into 10 weeks leaves little time for rest, so I wasn&#8217;t surprised to notice a sizable drop-off in my cognitive ability while working on my last OS lab a few weeks ago. My lab (a toy virtual memory management unit responsible for virtual paging) is written in Java &#8211; a language I&#8217;m learning this summer &#8211; and while I have a rational understanding of how it works (having studied it in a programming languages class last semester), I&#8217;m not 100% comfortable with it just yet.</p>
-
-<p>That discomfort manifested as a few, time-consuming mistakes during a couple of tough, sleepless weeks. As an example, I&#8217;ll talk about how I made a silly type casting mistake.</p>
-
-<p>My toy virtual memory manager (VMM) needed to swap pages in and out of physical memory whenever new instructions would arrive. There are a number of algorithms for page replacement, so I gave the user the option of selecting from a subset of these:</p>
-
-<pre><code>private ReplacementAlgorithm algo;
-...
-// Attach the right algorithm.
-this.algo = selectReplacementAlgorithm(algo);
-...
-private ReplacementAlgorithm selectReplacementAlgorithm(String choice) {
-    if (choice.matches("N")) {
-        return new NRUAlgorithm();
-    } else if (choice.matches("l")) {
-        return new LRUAlgorithm();
-    ...
-}
-</code></pre>
-
-<p>Each of those algorithm objects implement basic methods from a ReplacementAlgorithm interface, but they also have their own logic (eg. debugging output or actions performed on internal queues). Thus, the VMM calls various methods depending on the page replacement algorithm selected by the user:</p>
-
-<pre><code>if (this.printAdditionalDetails) {
-    if (this.algo instanceof FIFOAlgorithm) {
-        ((FIFOAlgorithm) this.algo).printQueueContents();
-        System.out.printf("\n");
-    } else if (this.algo instanceof PhysicalClockAlgorithm) {
-        ((PhysicalClockAlgorithm) this.algo).printClock();
-        System.out.printf("\n");
-...
-</code></pre>
-
-<p>At one point, one of the replacement algorithms was not updating its internal state correctly, thus causing it to replace pages incorrectly. Here&#8217;s where the sleep deprivation came in: I actually spent a non-trivial amount of time (about 1-2 hours) refactoring my code because I thought the type checking statements above identified every algorithm as a ReplacementAlgorithm, and not as a LRUAlgorithm, NRUAlgorithm, etc.</p>
-
-<p>In retrospect, it was a dumb assumption. Java interfaces are a basic example of OO inheritance, and an object of a class that implements an interface clearly has both the class&#8217;s type and the interface&#8217;s type. The behavior is the same in Python&#8211;here&#8217;s an example:</p>
-
-<pre><code>&gt;&gt;&gt; class Foo(object): pass
-&gt;&gt;&gt; class Bar(Foo): pass
-&gt;&gt;&gt; isinstance(Bar(), Foo)
-True
-</code></pre>
-
-<p>Anyway, just an example of a silly mistake fueled by sleep deprivation that cost a few hours of lost dev time. Make sure to get your sleep!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency]]></title>
-    <link href="http://acompa.github.com/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/"/>
-    <updated>2012-07-20T18:43:00-04:00</updated>
-    <id>http://acompa.github.com/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency</id>
-    <content type="html"><![CDATA[<p><em>This post is reproduced from <a href="http://www.knewton.com/tech/blog/2012/06/understanding-student-performance-with-item-response-theory/">Knewton&#8217;s tech blog</a>, where I posted it a few months ago.</em></p>
+<div class="entry-content"><p><em>This post is reproduced from <a href="http://www.knewton.com/tech/blog/2012/06/understanding-student-performance-with-item-response-theory/">Knewton&#8217;s tech blog</a>, where I posted it a few months ago.</em></p>
 
 <p>Imagine for a second that you’re teaching a math remediation course full of fourth graders. You’ve just administered a test with 10 questions. Of those 10 questions, two questions are trivial, two are incredibly hard, and the rest are equally difficult. Now imagine that two of your students take this test and answer nine of the 10 questions correctly. The first student answers an easy question incorrectly, while the second answers a hard question incorrectly. How would you try to identify the student with higher ability?</p>
 
@@ -210,7 +171,180 @@ True
 
 
 <p><em>Also, thanks to Jesse St. Charles, George Davis, and Christina Yu for their helpful feedback on this post!</em></p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-</feed>
+
+<span class="byline author vcard">Posted by <span class="fn">Alejandro Companioni</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-20T18:43:00-04:00" pubdate data-updated="true">Jul 20<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://acompa.github.com/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/" data-via="achompas" data-counturl="http://acompa.github.com/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/08/03/sleeplessness-bad-code/" title="Next Post: Sleeplessness &amp;rarr; bad code">Sleeplessness &amp;rarr; bad code &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/05/presenting-leptoid-at-surge-2012/">Presenting leptoid at Surge 2012</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/07/installing-r-and-rpy2-from-scratch/">Installing R and rpy2 from scratch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/03/sleeplessness-bad-code/">Sleeplessness &amp;rarr; bad code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/">Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/acompa">@acompa</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'acompa',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("achompas", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/achompas" class="twitter-follow-button" data-show-count="false">Follow @achompas</a>
+  
+</section>
+
+
+<section>
+  <h1>My Pinboard</h1>
+  <ul id="pinboard_linkroll">Fetching linkroll...</ul>
+  <p><a href="http://pinboard.in/u:acompa">My Pinboard Bookmarks &raquo;</a></p>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "acompa"; //id target for pinboard list
+  var pinboard_count = 3; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Alejandro Companioni -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

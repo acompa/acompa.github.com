@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Witty Math Title Here</title>
+  <title>Installing R and rpy2 from scratch - Witty Math Title Here</title>
   <meta name="author" content="Alejandro Companioni">
 
   
-  <meta name="description" content="Blog Archive 2012 Presenting leptoid at Surge 2012
-Oct 05 2012 Installing R and rpy2 from scratch
-Sep 07 2012 Sleeplessness &amp;rarr; bad code
-Aug &hellip;">
+  <meta name="description" content="Python has seen a bit of an explosion in packages for statistics, machine learning, and data structures to support the two. Between pandas, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ Aug &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://acompa.github.com/blog/archives/">
+  <link rel="canonical" href="http://acompa.github.com/blog/2012/09/07/installing-r-and-rpy2-from-scratch/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,61 +63,95 @@ Aug &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Installing R and Rpy2 From Scratch</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-07T18:40:00-04:00" pubdate data-updated="true">Sep 7<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>Python has seen a bit of an explosion in packages for statistics, machine learning, and data structures to support the two. Between <a href="pandas.pydata.org">pandas</a>, <a href="statsmodels.sourceforge.net">statsmodels</a>, <a href="scikit-learn.org">scikit-learn</a>, and <a href="http://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a> Python developers now have a miniature data stack for econometrics, machine learning algorithms, or statistics, as well as sensible data structures with tons of convenience functions.</p>
 
-  
-  <h2>2012</h2>
+<p>Still, those packages may not provide <em>everything</em> you need to get the job done. If, like me, you&#8217;re a Python dev analyzing some time series data, you might need to visit <a href="r-project.org">an old friend</a> with excellent, full-featured statistical packages like <a href="http://cran.r-project.org/web/packages/caret/index.html">caret</a> and <a href="http://robjhyndman.com/software/forecast/">forecast</a>.</p>
 
-<article>
-  
-<h1><a href="/blog/2012/10/05/presenting-leptoid-at-surge-2012/">Presenting leptoid at Surge 2012</a></h1>
-<time datetime="2012-10-05T17:11:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>05</span> <span class='year'>2012</span></time>
+<p>You&#8217;ll be happy to know that, with <a href="http://rpy.sourceforge.net/rpy2.html">rpy2</a>, you can have your cake and eat it too. Installing rpy2 can be painful, however, especially if you&#8217;re working with EC2 instances on Amazon Web Services. New instances contain little or no GNU tools, making an R + rpy2 installation harder than</p>
 
+<pre><code>sudo apt-get install r-base r-base-dev python-dev python-setuptools
+sudo easy_install pip
+for pkg in numpy scipy rpy2; do
+    sudo pip install pkg
+done
+</code></pre>
 
-</article>
+<p>I&#8217;ve attached a script below to help devs get past this problem. It has been tested to work on Ubuntu 11.10, and I don&#8217;t expect any compatibility issues with newer versions.</p>
 
-
-
-<article>
-  
-<h1><a href="/blog/2012/09/07/installing-r-and-rpy2-from-scratch/">Installing R and rpy2 from scratch</a></h1>
-<time datetime="2012-09-07T18:40:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>07</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/08/03/sleeplessness-bad-code/">Sleeplessness &amp;rarr; bad code</a></h1>
-<time datetime="2012-08-03T18:42:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>03</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/">Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</a></h1>
-<time datetime="2012-07-20T18:43:00-04:00" pubdate><span class='month'>Jul</span> <span class='day'>20</span> <span class='year'>2012</span></time>
-
-
-</article>
-
+<p><a href="https://gist.github.com/3700827">Here&#8217;s a Gist</a> with the script. If you run into issues, please let me know and I&#8217;ll try to fix them and update the script.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Alejandro Companioni</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-07T18:40:00-04:00" pubdate data-updated="true">Sep 7<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://acompa.github.com/blog/2012/09/07/installing-r-and-rpy2-from-scratch/" data-via="achompas" data-counturl="http://acompa.github.com/blog/2012/09/07/installing-r-and-rpy2-from-scratch/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/08/03/sleeplessness-bad-code/" title="Previous Post: Sleeplessness &amp;rarr; bad code">&laquo; Sleeplessness &amp;rarr; bad code</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/10/05/presenting-leptoid-at-surge-2012/" title="Next Post: Presenting leptoid at Surge 2012">Presenting leptoid at Surge 2012 &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>

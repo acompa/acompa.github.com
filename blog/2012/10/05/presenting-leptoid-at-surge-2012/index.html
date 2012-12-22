@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Witty Math Title Here</title>
+  <title>Presenting leptoid at Surge 2012 - Witty Math Title Here</title>
   <meta name="author" content="Alejandro Companioni">
 
   
-  <meta name="description" content="Blog Archive 2012 Presenting leptoid at Surge 2012
-Oct 05 2012 Installing R and rpy2 from scratch
-Sep 07 2012 Sleeplessness &amp;rarr; bad code
-Aug &hellip;">
+  <meta name="description" content="I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ Aug &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://acompa.github.com/blog/archives/">
+  <link rel="canonical" href="http://acompa.github.com/blog/2012/10/05/presenting-leptoid-at-surge-2012/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,61 +63,103 @@ Aug &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Presenting Leptoid at Surge 2012</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-05T17:11:00-04:00" pubdate data-updated="true">Oct 5<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code instrumentation, and server management and deployment, and I recently presented about what I learned at <a href="http://omniti.com/surge/2012">Surge Conference 2012</a>.</p>
 
-  
-  <h2>2012</h2>
+<p>The talk focused on instrumentation more than anything else, and you can check out the slides <a href="https://www.dropbox.com/s/7wcaj6c892we2n5/Autoscaling%20with%20Leptoid-Final.pdf">here</a>. If capacity planning sounds interesting, we also open-sourced leptoid &#8211; the autoscaling library I worked on &#8211; so that you could review the source on <a href="https://github.com/knewton/leptoid">Github</a>.</p>
 
-<article>
-  
-<h1><a href="/blog/2012/10/05/presenting-leptoid-at-surge-2012/">Presenting leptoid at Surge 2012</a></h1>
-<time datetime="2012-10-05T17:11:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>05</span> <span class='year'>2012</span></time>
+<p>I also had a chance to speak with two excellent guys, Nathan Harvey and Dave Zwieback, for <a href="http://foodfightshow.org/2012/09/surge-update-knewton.html">an interview</a> on Food Fight. During that interview I talked about my Surge presentation and experiences as a junior engineer at Knewton.</p>
 
+<p>During my talk I mentioned the unimportance of a good capacity forecasting model relative to good instrumentation and deployment practices. This was revelatory. I actually spent the majority of my summer outside of my machine learning &amp; statistical wheelhouse, instead working on this autoscaling project with Knewton&#8217;s systems team. Lots of time went into</p>
 
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/09/07/installing-r-and-rpy2-from-scratch/">Installing R and rpy2 from scratch</a></h1>
-<time datetime="2012-09-07T18:40:00-04:00" pubdate><span class='month'>Sep</span> <span class='day'>07</span> <span class='year'>2012</span></time>
+<ul>
+<li>instrumenting code with <a href="https://github.com/etsy/statsd">statsd</a> and Coda Hale&#8217;s <a href="https://github.com/codahale/metrics">metrics</a></li>
+<li>managing a cluster of <a href="https://github.com/graphite-project">Graphite</a> hosts</li>
+<li>fumbling around with <a href="http://www.opscode.com/chef/">Chef</a></li>
+</ul>
 
 
-</article>
+<p>That list of items looks really obnoxious, I know, but I don&#8217;t want to forget about them. I simultaneously studied operating systems at NYU during this project, and have a list of topics I&#8217;d like to dig into once things slow down:</p>
+
+<ul>
+<li>scheduling and thread prioritization (beyond aging and &#8220;NRU&#8221; scheduling algorithms)</li>
+<li>networking, especially DNS lookups and comparisons between proxies</li>
+<li>sharding (or distributed storage, especially w.r.t something like HDFS)</li>
+<li>kernel v. user modes, and how they work in practice</li>
+</ul>
 
 
-
-<article>
-  
-<h1><a href="/blog/2012/08/03/sleeplessness-bad-code/">Sleeplessness &amp;rarr; bad code</a></h1>
-<time datetime="2012-08-03T18:42:00-04:00" pubdate><span class='month'>Aug</span> <span class='day'>03</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/">Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</a></h1>
-<time datetime="2012-07-20T18:43:00-04:00" pubdate><span class='month'>Jul</span> <span class='day'>20</span> <span class='year'>2012</span></time>
-
-
-</article>
-
+<p>Either way, I feel like a better developer after this summer. It was an excellent experience, and Dave and Peter Norton (who really needs to get on Twitter or Pinterest or something) were excellent mentors.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Alejandro Companioni</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-05T17:11:00-04:00" pubdate data-updated="true">Oct 5<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://acompa.github.com/blog/2012/10/05/presenting-leptoid-at-surge-2012/" data-via="achompas" data-counturl="http://acompa.github.com/blog/2012/10/05/presenting-leptoid-at-surge-2012/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/07/installing-r-and-rpy2-from-scratch/" title="Previous Post: Installing R and rpy2 from scratch">&laquo; Installing R and rpy2 from scratch</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
