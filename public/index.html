@@ -5,11 +5,18 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
+  <title>ACOMPA</title>
+  <meta name="author" content="Alejandro Companioni">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="
+  {% assign index = true %}
+  {% for post in paginator.posts %}
+  {% assign content = post.content %}
+    
+      {% include article.html %}
+    
+ ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,12 +26,12 @@
 
   
   <link rel="canonical" href="http://acompa.github.com/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <link href="//favicon.png" rel="icon">
+  <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="//javascripts/modernizr-2.0.js"></script>
+  <script src="//javascripts/ender.js"></script>
+  <script src="//javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="ACOMPA" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -35,9 +42,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
+  <h1><a href="//">ACOMPA</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
+    <h2>Learning about machine learning and statistics, one mistake at a time.</h2>
   
 </hgroup>
 
@@ -49,49 +56,49 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:acompa.github.com" />
+    <input type="hidden" name="q" value="site:http://acompa.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="//">Blog</a></li>
+  <li><a href="//blog/archives">Archives</a></li>
 </ul>
 
 </nav>
   <div id="main">
     <div id="content">
       <div class="blog-index">
-  
-  
+  {% assign index = true %}
+  {% for post in paginator.posts %}
+  {% assign content = post.content %}
+    <article>
+      {% include article.html %}
+    </article>
+  {% endfor %}
   <div class="pagination">
-    
+    {% if paginator.next_page %}
+      <a class="prev" href="{{paginator.next_page}}">&larr; Older</a>
+    {% endif %}
     <a href="/blog/archives">Blog Archives</a>
-    
+    {% if paginator.previous_page %}
+    <a class="next" href="{{paginator.previous_page}}">Newer &rarr;</a>
+    {% endif %}
   </div>
 </div>
 <aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-  </ul>
-</section>
-
-
-
-
-
-
-  
+  {% if site.blog_index_asides.size %}
+    {% include_array blog_index_asides %}
+  {% else %}
+    {% include_array default_asides %}
+  {% endif %}
 </aside>
 
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Your Name -
+  Copyright &copy; 2012 - Alejandro Companioni -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
