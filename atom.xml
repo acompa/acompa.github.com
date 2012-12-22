@@ -4,7 +4,7 @@
   <title><![CDATA[Witty Math Title Here]]></title>
   <link href="http://acompa.github.com/atom.xml" rel="self"/>
   <link href="http://acompa.github.com/"/>
-  <updated>2012-12-21T19:24:11-05:00</updated>
+  <updated>2012-12-21T19:28:48-05:00</updated>
   <id>http://acompa.github.com/</id>
   <author>
     <name><![CDATA[Alejandro Companioni]]></name>
@@ -136,6 +136,9 @@ True
 <p>Under a traditional grading approach, you would assign both students a score of 90 out of 100, grant both of them an A, and move on to the next test. This approach illustrates a key problem with measuring student ability via testing instruments: test questions do not have uniform characteristics. So how can we measure student ability while accounting for differences in questions?</p>
 
 <p><strong>Item response theory</strong> (IRT) attempts to model student ability using question level performance instead of aggregate test level performance. Instead of assuming all questions contribute equally to our understanding of a student’s abilities, IRT provides a more nuanced view on the information each question provides about a student. What kind of features can a question have? Let’s consider some examples.</p>
+
+<!-- more -->
+
 
 <p>First, think back to an exam you have previously taken. Sometimes you breeze through the first section, work through a second section of questions, then battle with a final section until the exam ends. In the traditional grading paradigm described earlier, a correct answer on the first section would count just as much as a correct answer on the final section, despite the fact that the first section is easier than the last! Similarly, a student demonstrates greater ability as she answers harder questions correctly; the traditional grading scheme, however, completely ignores each question’s difficulty when grading students!</p>
 
