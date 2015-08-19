@@ -4,7 +4,7 @@
   <title><![CDATA[Witty Math Title Here]]></title>
   <link href="http://acompa.github.com/atom.xml" rel="self"/>
   <link href="http://acompa.github.com/"/>
-  <updated>2015-08-15T15:50:03-04:00</updated>
+  <updated>2015-08-19T17:48:17-04:00</updated>
   <id>http://acompa.github.com/</id>
   <author>
     <name><![CDATA[Alejandro Companioni]]></name>
@@ -12,15 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Using Celery to build a distributed data pipeline]]></title>
-    <link href="http://acompa.github.com/blog/2015/08/15/using-celery-to-build-a-distributed-data-pipeline/"/>
-    <updated>2015-08-15T15:40:00-04:00</updated>
-    <id>http://acompa.github.com/blog/2015/08/15/using-celery-to-build-a-distributed-data-pipeline</id>
-    <content type="html"><![CDATA[<p>Since joining <a href="betaworks.com">Betaworks</a> at the end of last year, I&#8217;ve worked on a new product called <a href="scalemodel.com">Scale Model</a>. Gilad describes</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Presenting leptoid at Surge 2012]]></title>

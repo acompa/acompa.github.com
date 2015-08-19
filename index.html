@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Blog Archives - Witty Math Title Here</title>
+	<title>Witty Math Title Here</title>
 	<meta name="author" content="Alejandro Companioni">
 
 	
-	<meta name="description" content="2015 Aug 15 Using Celery to build a distributed data pipeline 2012 Oct 5 Presenting leptoid at Surge 2012 Sep 7 Installing R and rpy2 from scratch &hellip;">
+	<meta name="description" content="I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -28,77 +28,215 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 					
-	
 
 
-	
-	
-	<section class="archives"><h1 class="year">2015</h1>
-
-<article>
+    <article class="post">
 	<div class="meta">
-		<span>Aug 15</span>
-		<br>
-	    
-	</div>
-	<h1 class="title"><a href="/blog/2015/08/15/using-celery-to-build-a-distributed-data-pipeline/">Using Celery to build a distributed data pipeline</a></h1>
-</article>
-
-	
+		<div class="date">
 
 
-	
-	
-		</section>
-	
-	<section class="archives"><h1 class="year">2012</h1>
 
-<article>
-	<div class="meta">
-		<span>Oct  5</span>
-		<br>
-	    
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-05T17:11:00-04:00" pubdate data-updated="true">Oct 5<span>th</span>, 2012</time></div>
+		
 	</div>
 	<h1 class="title"><a href="/blog/2012/10/05/presenting-leptoid-at-surge-2012/">Presenting leptoid at Surge 2012</a></h1>
+	<div class="entry-content">
+		<p>I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code instrumentation, and server management and deployment, and I recently presented about what I learned at <a href="http://omniti.com/surge/2012">Surge Conference 2012</a>.</p>
+
+<p>The talk focused on instrumentation more than anything else, and you can check out the slides <a href="https://www.dropbox.com/s/7wcaj6c892we2n5/Autoscaling%20with%20Leptoid-Final.pdf">here</a>. If capacity planning sounds interesting, we also open-sourced leptoid &#8211; the autoscaling library I worked on &#8211; so that you could review the source on <a href="https://github.com/knewton/leptoid">Github</a>.</p>
+
+<p>I also had a chance to speak with two excellent guys, Nathan Harvey and Dave Zwieback, for <a href="http://foodfightshow.org/2012/09/surge-update-knewton.html">an interview</a> on Food Fight. During that interview I talked about my Surge presentation and experiences as a junior engineer at Knewton.</p>
+
+<p>During my talk I mentioned the unimportance of a good capacity forecasting model relative to good instrumentation and deployment practices. This was revelatory. I actually spent the majority of my summer outside of my machine learning &amp; statistical wheelhouse, instead working on this autoscaling project with Knewton&#8217;s systems team. Lots of time went into</p>
+
+<ul>
+<li>instrumenting code with <a href="https://github.com/etsy/statsd">statsd</a> and Coda Hale&#8217;s <a href="https://github.com/codahale/metrics">metrics</a></li>
+<li>managing a cluster of <a href="https://github.com/graphite-project">Graphite</a> hosts</li>
+<li>fumbling around with <a href="http://www.opscode.com/chef/">Chef</a></li>
+</ul>
+
+
+<p>That list of items looks really obnoxious, I know, but I don&#8217;t want to forget about them. I simultaneously studied operating systems at NYU during this project, and have a list of topics I&#8217;d like to dig into once things slow down:</p>
+
+<ul>
+<li>scheduling and thread prioritization (beyond aging and &#8220;NRU&#8221; scheduling algorithms)</li>
+<li>networking, especially DNS lookups and comparisons between proxies</li>
+<li>sharding (or distributed storage, especially w.r.t something like HDFS)</li>
+<li>kernel v. user modes, and how they work in practice</li>
+</ul>
+
+
+<p>Either way, I feel like a better developer after this summer. It was an excellent experience, and Dave and Peter Norton (who really needs to get on Twitter or Pinterest or something) were excellent mentors.</p>
+
+		
+		
+	</div>
+
 </article>
 
-	
 
-
-<article>
+    <article class="post">
 	<div class="meta">
-		<span>Sep  7</span>
-		<br>
-	    
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-07T18:40:00-04:00" pubdate data-updated="true">Sep 7<span>th</span>, 2012</time></div>
+		
 	</div>
 	<h1 class="title"><a href="/blog/2012/09/07/installing-r-and-rpy2-from-scratch/">Installing R and rpy2 from scratch</a></h1>
+	<div class="entry-content">
+		<p>Python has seen a bit of an explosion in packages for statistics, machine learning, and data structures to support the two. Between <a href="pandas.pydata.org">pandas</a>, <a href="statsmodels.sourceforge.net">statsmodels</a>, <a href="scikit-learn.org">scikit-learn</a>, and <a href="http://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a> Python developers now have a miniature data stack for econometrics, machine learning algorithms, or statistics, as well as sensible data structures with tons of convenience functions.</p>
+
+<p>Still, those packages may not provide <em>everything</em> you need to get the job done. If, like me, you&#8217;re a Python dev analyzing some time series data, you might need to visit <a href="r-project.org">an old friend</a> with excellent, full-featured statistical packages like <a href="http://cran.r-project.org/web/packages/caret/index.html">caret</a> and <a href="http://robjhyndman.com/software/forecast/">forecast</a>.</p>
+
+<p>You&#8217;ll be happy to know that, with <a href="http://rpy.sourceforge.net/rpy2.html">rpy2</a>, you can have your cake and eat it too. Installing rpy2 can be painful, however, especially if you&#8217;re working with EC2 instances on Amazon Web Services. New instances contain little or no GNU tools, making an R + rpy2 installation harder than</p>
+
+<pre><code>sudo apt-get install r-base r-base-dev python-dev python-setuptools
+sudo easy_install pip
+for pkg in numpy scipy rpy2; do
+    sudo pip install pkg
+done
+</code></pre>
+
+<p>I&#8217;ve attached a script below to help devs get past this problem. It has been tested to work on Ubuntu 11.10, and I don&#8217;t expect any compatibility issues with newer versions.</p>
+
+<p><a href="https://gist.github.com/3700827">Here&#8217;s a Gist</a> with the script. If you run into issues, please let me know and I&#8217;ll try to fix them and update the script.</p>
+
+		
+		
+	</div>
+
 </article>
 
-	
 
-
-<article>
+    <article class="post">
 	<div class="meta">
-		<span>Aug  3</span>
-		<br>
-	    
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-03T18:42:00-04:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2012</time></div>
+		
 	</div>
 	<h1 class="title"><a href="/blog/2012/08/03/sleeplessness-bad-code/">Sleeplessness &rarr; bad code</a></h1>
+	<div class="entry-content">
+		<p>David Smith recently pushed out <a href="http://developingperspective.com/2012/08/02/70/">an excellent episode</a> of his &#8220;Developing Perspectives&#8221; podcast. In it, he discusses the importance of rest, especially as it relates to the quality of a developer&#8217;s work.</p>
+
+<p>A big product launch at Knewton and a semester-long OS class compressed into 10 weeks leaves little time for rest, so I wasn&#8217;t surprised to notice a sizable drop-off in my cognitive ability while working on my last OS lab a few weeks ago. My lab (a toy virtual memory management unit responsible for virtual paging) is written in Java &#8211; a language I&#8217;m learning this summer &#8211; and while I have a rational understanding of how it works (having studied it in a programming languages class last semester), I&#8217;m not 100% comfortable with it just yet.</p>
+
+<p>That discomfort manifested as a few, time-consuming mistakes during a couple of tough, sleepless weeks. As an example, I&#8217;ll talk about how I made a silly type casting mistake.</p>
+
+<p>My toy virtual memory manager (VMM) needed to swap pages in and out of physical memory whenever new instructions would arrive. There are a number of algorithms for page replacement, so I gave the user the option of selecting from a subset of these:</p>
+
+<pre><code>private ReplacementAlgorithm algo;
+...
+// Attach the right algorithm.
+this.algo = selectReplacementAlgorithm(algo);
+...
+private ReplacementAlgorithm selectReplacementAlgorithm(String choice) {
+    if (choice.matches("N")) {
+        return new NRUAlgorithm();
+    } else if (choice.matches("l")) {
+        return new LRUAlgorithm();
+    ...
+}
+</code></pre>
+
+<p>Each of those algorithm objects implement basic methods from a ReplacementAlgorithm interface, but they also have their own logic (eg. debugging output or actions performed on internal queues). Thus, the VMM calls various methods depending on the page replacement algorithm selected by the user:</p>
+
+<pre><code>if (this.printAdditionalDetails) {
+    if (this.algo instanceof FIFOAlgorithm) {
+        ((FIFOAlgorithm) this.algo).printQueueContents();
+        System.out.printf("\n");
+    } else if (this.algo instanceof PhysicalClockAlgorithm) {
+        ((PhysicalClockAlgorithm) this.algo).printClock();
+        System.out.printf("\n");
+...
+</code></pre>
+
+<p>At one point, one of the replacement algorithms was not updating its internal state correctly, thus causing it to replace pages incorrectly. Here&#8217;s where the sleep deprivation came in: I actually spent a non-trivial amount of time (about 1-2 hours) refactoring my code because I thought the type checking statements above identified every algorithm as a ReplacementAlgorithm, and not as a LRUAlgorithm, NRUAlgorithm, etc.</p>
+
+<p>In retrospect, it was a dumb assumption. Java interfaces are a basic example of OO inheritance, and an object of a class that implements an interface clearly has both the class&#8217;s type and the interface&#8217;s type. The behavior is the same in Python&#8211;here&#8217;s an example:</p>
+
+<pre><code>&gt;&gt;&gt; class Foo(object): pass
+&gt;&gt;&gt; class Bar(Foo): pass
+&gt;&gt;&gt; isinstance(Bar(), Foo)
+True
+</code></pre>
+
+<p>Anyway, just an example of a silly mistake fueled by sleep deprivation that cost a few hours of lost dev time. Make sure to get your sleep!</p>
+
+		
+		
+	</div>
+
 </article>
 
-	
 
-
-<article>
+    <article class="post">
 	<div class="meta">
-		<span>Jul 20</span>
-		<br>
-	    
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-20T18:43:00-04:00" pubdate data-updated="true">Jul 20<span>th</span>, 2012</time></div>
+		
 	</div>
 	<h1 class="title"><a href="/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/">Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</a></h1>
+	<div class="entry-content">
+		<p><em>This post is reproduced from <a href="http://www.knewton.com/tech/blog/2012/06/understanding-student-performance-with-item-response-theory/">Knewton&#8217;s tech blog</a>, where I posted it a few months ago.</em></p>
+
+<p>Imagine for a second that you’re teaching a math remediation course full of fourth graders. You’ve just administered a test with 10 questions. Of those 10 questions, two questions are trivial, two are incredibly hard, and the rest are equally difficult. Now imagine that two of your students take this test and answer nine of the 10 questions correctly. The first student answers an easy question incorrectly, while the second answers a hard question incorrectly. How would you try to identify the student with higher ability?</p>
+
+<p>Under a traditional grading approach, you would assign both students a score of 90 out of 100, grant both of them an A, and move on to the next test. This approach illustrates a key problem with measuring student ability via testing instruments: test questions do not have uniform characteristics. So how can we measure student ability while accounting for differences in questions?</p>
+
+<p><strong>Item response theory</strong> (IRT) attempts to model student ability using question level performance instead of aggregate test level performance. Instead of assuming all questions contribute equally to our understanding of a student’s abilities, IRT provides a more nuanced view on the information each question provides about a student. What kind of features can a question have? Let’s consider some examples.</p>
+
+
+		
+		<a href="/blog/2012/07/20/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency/" class="more-link">Read on &rarr;</a>
+	</div>
+
 </article>
 
-
+<nav id="pagenavi">
+    
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav>
 				</div>
 			</div>
 			<footer id="footer" class="inner">
