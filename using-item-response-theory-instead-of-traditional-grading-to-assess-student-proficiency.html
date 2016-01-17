@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency - On Statistics and Machine Learning</title>	
+	<meta name="author" content="Alex Companioni">
+	
+
+  <meta name="description" content="This post is reproduced from Knewton's tech blog, where I posted it a few months ago. Imagine for a second that you’re teaching a math remediation course full of fourth graders. You’ve just administered a test with 10 questions. Of those 10 questions, two questions are trivial ...">
+
+
+
+	<link rel="stylesheet" href="http://acompa.net/theme/css/main.css" type="text/css" />
+		
+
+
+    <link href="http://acompa.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="On Statistics and Machine Learning Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	      <a href="http://acompa.net/feeds/all.atom.xml" rel="alternate"><img src="http://acompa.net/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="http://acompa.net" class="title">On Statistics and Machine Learning</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</h1>
+		
+<div class="metadata">
+  <time datetime="2012-07-20T18:43:00-04:00" pubdate>Fri 20 July 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://acompa.net/author/alex-companioni.html">Alex Companioni</a>
+    </address>
+  in <a href="http://acompa.net/category/misc.html">misc</a>
+</div>		
+		<p><em>This post is reproduced from <a href="http://www.knewton.com/tech/blog/2012/06/understanding-student-performance-with-item-response-theory/">Knewton's tech blog</a>, where I posted it a few months ago.</em></p>
+<p>Imagine for a second that you’re teaching a math remediation course full of fourth graders. You’ve just administered a test with 10 questions. Of those 10 questions, two questions are trivial, two are incredibly hard, and the rest are equally difficult. Now imagine that two of your students take this test and answer nine of the 10 questions correctly. The first student answers an easy question incorrectly, while the second answers a hard question incorrectly. How would you try to identify the student with higher ability?</p>
+<p>Under a traditional grading approach, you would assign both students a score of 90 out of 100, grant both of them an A, and move on to the next test. This approach illustrates a key problem with measuring student ability via testing instruments: test questions do not have uniform characteristics. So how can we measure student ability while accounting for differences in questions?</p>
+<p><strong>Item response theory</strong> (IRT) attempts to model student ability using question level performance instead of aggregate test level performance. Instead of assuming all questions contribute equally to our understanding of a student’s abilities, IRT provides a more nuanced view on the information each question provides about a student. What kind of features can a question have? Let’s consider some examples.</p>
+<p>First, think back to an exam you have previously taken. Sometimes you breeze through the first section, work through a second section of questions, then battle with a final section until the exam ends. In the traditional grading paradigm described earlier, a correct answer on the first section would count just as much as a correct answer on the final section, despite the fact that the first section is easier than the last! Similarly, a student demonstrates greater ability as she answers harder questions correctly; the traditional grading scheme, however, completely ignores each question’s difficulty when grading students!</p>
+<p>The one-parameter logistic (1PL) IRT model attempts to address this by allowing each question to have an independent difficulty variable. It models the probability of a correct answer using the following logistic function:</p>
+<p><img alt="1PL" src="http://www.knewton.com/tech/files/2012/06/alex1-300x60.png" /></p>
+<p>where j represents the question of interest, theta is the current student’s ability, and beta is item j’s difficulty. This function is also known as the item response function. We can examine its plot (with different values of beta) below</p>
+<p><img alt="1PL plot" src="https://tech.knewton.com/files/2012/06/alex2.png" /></p>
+<p>to confirm a couple of things:</p>
+<ul>
+<li>For a given ability level, the probability of a correct answer increases as item difficulty decreases. It follows that, between two questions, the question with a lower beta value is easier.</li>
+<li>Similarly, for a given question difficulty level, the probability of a correct answer increases as student ability increases. In fact, the curves displayed above take a sigmoidal form, thus implying that the probability of a correct answer increases monotonically as student ability increases.</li>
+</ul>
+<p>Now consider using the 1PL model to analyze test responses provided by a group of students. If one student answers one question, we can only draw information about that student’s ability from the first question. Now imagine a second student answers the same question as well as a second question, as illustrated below.</p>
+<p><img alt="graph of answers" src="https://tech.knewton.com/files/2012/06/alex3.png" /></p>
+<p>We immediately have the following additional information about both students and both test questions:</p>
+<ul>
+<li>We now know more about student 2’s ability relative to student 1 based on student 2’s answer to the first question. For example, if student 1 answered correctly and student 2 answered incorrectly we  know that student 1’s ability is greater than student 2’s ability.</li>
+<li>We also know more about the first question’s difficulty after student 2 answered the second question. Continuing the example from above, if student 2 answers the second question correctly, we know that Q1 likely has a higher difficulty than Q2 does.</li>
+<li>Most importantly, however, we now know more about the first student! Continuing the example even further, we now know that Q1 is more difficult than initially expected. Student 1 answered the first question correctly, suggesting that student 1 has greater ability than we initially estimated!</li>
+</ul>
+<p>This form of message passing via item parameters is the key distinction between IRT’s estimates of student ability and other naive approaches (like the grading scheme described earlier). Interestingly, it also suggests that one could develop an online version of IRT that updates ability estimates as more questions and answers arrive!</p>
+<p>But let’s not get ahead of ourselves. Instead, let’s continue to develop item response theory by considering the fact that students of all ability levels might have the same probability of correctly answering a poorly-written question. When discussing IRT models, we say that these questions have a low discrimination value, since they do not discriminate between students of high- or low-ability. Ideally, a good question (i.e. one with a high discrimination) will maximally separate students into two groups: those with the ability to answer correctly, and those without.</p>
+<p>This gets at an important point about test questions: some questions do a better job than others of distinguishing between students of similar abilities. The two-parameter logistic (2PL) IRT model incorporates this idea by attempting to model each item’s level of discrimination between high- and low-ability students. This can be expressed as a simple tweak to the 1PL:</p>
+<p><img alt="2PL" src="http://www.knewton.com/tech/files/2012/06/alex4-300x66.png" /></p>
+<p>How does the addition of alpha, the item discrimination parameter, affect our model? As above, we can take a look at the item response function while changing alpha a bit:</p>
+<p><img alt="2PL plot" src="https://tech.knewton.com/files/2012/06/alex5.png" /></p>
+<p>As previously stated, items with high discrimination values can distinguish between students of similar ability. If we’re attempting to compare students with abilities near zero, a higher discrimination sharply decreases the probability that a student with ability &lt; 0 will answer correctly, and increases the probability that a student with ability &gt; 0 will answer correctly.</p>
+<p>We can even go a step further here, and state that an adaptive test could use a bank of high-discrimination questions of varying difficulty to optimally identify a student’s abilities. As a student answers each of these high-discrimination questions, we could choose a harder question if the student answers correctly (and vice versa). In fact, one could even identify the student’s exact ability level via binary search, if the student is willing to work through a test bank with an infinite number of high-discrimination questions with varying difficulty!</p>
+<p><img alt="difficulties" src="http://www.knewton.com/tech/files/2012/06/alex6-300x253.png" /></p>
+<p>Of course, the above scenario is not completely true to reality. Sometimes students will identify the correct answer by simply guessing! We know that answers can result from concept mastery or filling in your Scantron like a Christmas tree. Additionally, students can increase their odds of guessing a question correctly by ignoring answers that are obviously wrong. We can thus model each question’s “guess-ability” with the three-parameter logistic (3PL) IRT model. The 3PL’s item response function looks like this:</p>
+<p><img alt="3PL" src="https://tech.knewton.com/files/2012/06/alex7.png" /></p>
+<p>where chi represents the item’s “pseudoguess” value. Chi is not considered a pure guessing value, since students can use some strategy or knowledge to eliminate bad guesses. Thus, while a “pure guess” would be the reciprocal of the number of options (i.e. a student has a one-in-four chance of guessing the answer to a multiple-choice question with four options), those odds may increase if the student manages to eliminate an answer (i.e. that same student increases her guessing odds to one-in-three if she knows one option isn’t correct).</p>
+<p>As before, let’s take a look at how the pseudoguess parameter affects the item response function curve:</p>
+<p><img alt="3PL plot" src="https://tech.knewton.com/files/2012/06/alex8.png" /></p>
+<p>Note that students of low ability now have a higher probability of guessing the question’s answer. This is also clear from the 3PL’s item response function (chi is an additive term and the second term is non-negative, so the probability of answering correctly is at least as high as chi). Note that there are a few general concerns in the IRT literature regarding the 3PL, especially regarding whether an item’s “guessability” is instead a part of a student’s “testing wisdom,” which arguably represents some kind of student ability.</p>
+<p>Regardless, at Knewton we’ve found IRT models to be extremely helpful when trying to understand our students’ abilities by examining their test performance.</p>
+<p><strong>References</strong></p>
+<ol>
+<li>de Ayala, R.J. (2008). The Theory and Practice of Item Response Theory, New York, NY: The Guilford Press.</li>
+<li>Kim, J.S., Bolt, D (2007). “Estimating Item Response Theory Models Using Markov Chain Monte Carlo Methods.” Educational Measurement: Issues and Practices 38 (51).</li>
+<li>Sheng, Y (2008). “Markov Chain Monte Carlo Estimation of Normal Ogive IRT Models in MATLAB.” Journal of Statistical Software 25 (8).</li>
+</ol>
+<p><em>Also, thanks to Jesse St. Charles, George Davis, and Christina Yu for their helpful feedback on this post!</em></p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Alex Companioni - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

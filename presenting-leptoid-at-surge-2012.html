@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Presenting leptoid at Surge 2012 - On Statistics and Machine Learning</title>	
+	<meta name="author" content="Alex Companioni">
+	
+
+  <meta name="description" content="I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code instrumentation, and server management and deployment, and I recently presented about what I learned at Surge Conference 2012. The talk focused on instrumentation more than anything ...">
+
+
+
+	<link rel="stylesheet" href="http://acompa.net/theme/css/main.css" type="text/css" />
+		
+
+
+    <link href="http://acompa.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="On Statistics and Machine Learning Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	      <a href="http://acompa.net/feeds/all.atom.xml" rel="alternate"><img src="http://acompa.net/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="http://acompa.net" class="title">On Statistics and Machine Learning</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Presenting leptoid at Surge 2012</h1>
+		
+<div class="metadata">
+  <time datetime="2012-10-05T17:11:00-04:00" pubdate>Fri 05 October 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://acompa.net/author/alex-companioni.html">Alex Companioni</a>
+    </address>
+  in <a href="http://acompa.net/category/misc.html">misc</a>
+</div>		
+		<p>I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code instrumentation, and server management and deployment, and I recently presented about what I learned at <a href="http://omniti.com/surge/2012">Surge Conference 2012</a>.</p>
+<p>The talk focused on instrumentation more than anything else, and you can check out the slides <a href="https://www.dropbox.com/s/7wcaj6c892we2n5/Autoscaling%20with%20Leptoid-Final.pdf">here</a>. If capacity planning sounds interesting, we also open-sourced leptoid -- the autoscaling library I worked on -- so that you could review the source on <a href="https://github.com/knewton/leptoid">Github</a>.</p>
+<p>I also had a chance to speak with two excellent guys, Nathan Harvey and Dave Zwieback, for <a href="http://foodfightshow.org/2012/09/surge-update-knewton.html">an interview</a> on Food Fight. During that interview I talked about my Surge presentation and experiences as a junior engineer at Knewton.</p>
+<p>During my talk I mentioned the unimportance of a good capacity forecasting model relative to good instrumentation and deployment practices. This was revelatory. I actually spent the majority of my summer outside of my machine learning &amp; statistical wheelhouse, instead working on this autoscaling project with Knewton's systems team. Lots of time went into</p>
+<ul>
+<li>instrumenting code with <a href="https://github.com/etsy/statsd">statsd</a> and Coda Hale's <a href="https://github.com/codahale/metrics">metrics</a></li>
+<li>managing a cluster of <a href="https://github.com/graphite-project">Graphite</a> hosts</li>
+<li>fumbling around with <a href="http://www.opscode.com/chef/">Chef</a></li>
+</ul>
+<p>That list of items looks really obnoxious, I know, but I don't want to forget about them. I simultaneously studied operating systems at NYU during this project, and have a list of topics I'd like to dig into once things slow down:</p>
+<ul>
+<li>scheduling and thread prioritization (beyond aging and "NRU" scheduling algorithms)</li>
+<li>networking, especially DNS lookups and comparisons between proxies</li>
+<li>sharding (or distributed storage, especially w.r.t something like HDFS)</li>
+<li>kernel v. user modes, and how they work in practice</li>
+</ul>
+<p>Either way, I feel like a better developer after this summer. It was an excellent experience, and Dave and Peter Norton (who really needs to get on Twitter or Pinterest or something) were excellent mentors.</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Alex Companioni - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Sleeplessness => bad code - On Statistics and Machine Learning</title>	
+	<meta name="author" content="Alex Companioni">
+	
+
+  <meta name="description" content="David Smith recently pushed out an excellent episode of his "Developing Perspectives" podcast. In it, he discusses the importance of rest, especially as it relates to the quality of a developer's work. A big product launch at Knewton and a semester-long OS class compressed into 10 weeks leaves little ...">
+
+
+
+	<link rel="stylesheet" href="http://acompa.net/theme/css/main.css" type="text/css" />
+		
+
+
+    <link href="http://acompa.net/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="On Statistics and Machine Learning Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	      <a href="http://acompa.net/feeds/all.atom.xml" rel="alternate"><img src="http://acompa.net/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+		<a href="http://acompa.net" class="title">On Statistics and Machine Learning</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>Sleeplessness => bad code</h1>
+		
+<div class="metadata">
+  <time datetime="2012-08-03T18:42:00-04:00" pubdate>Fri 03 August 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://acompa.net/author/alex-companioni.html">Alex Companioni</a>
+    </address>
+  in <a href="http://acompa.net/category/misc.html">misc</a>
+</div>		
+		<p>David Smith recently pushed out <a href="http://developingperspective.com/2012/08/02/70/">an excellent episode</a> of his "Developing Perspectives" podcast. In it, he discusses the importance of rest, especially as it relates to the quality of a developer's work.</p>
+<p>A big product launch at Knewton and a semester-long OS class compressed into 10 weeks leaves little time for rest, so I wasn't surprised to notice a sizable drop-off in my cognitive ability while working on my last OS lab a few weeks ago. My lab (a toy virtual memory management unit responsible for virtual paging) is written in Java -- a language I'm learning this summer -- and while I have a rational understanding of how it works (having studied it in a programming languages class last semester), I'm not 100% comfortable with it just yet.</p>
+<p>That discomfort manifested as a few, time-consuming mistakes during a couple of tough, sleepless weeks. As an example, I'll talk about how I made a silly type casting mistake.</p>
+<p>My toy virtual memory manager (VMM) needed to swap pages in and out of physical memory whenever new instructions would arrive. There are a number of algorithms for page replacement, so I gave the user the option of selecting from a subset of these:</p>
+<div class="highlight"><pre>private ReplacementAlgorithm algo;
+...
+// Attach the right algorithm.
+this.algo = selectReplacementAlgorithm(algo);
+...
+private ReplacementAlgorithm selectReplacementAlgorithm(String choice) {
+    if (choice.matches(&quot;N&quot;)) {
+        return new NRUAlgorithm();
+    } else if (choice.matches(&quot;l&quot;)) {
+        return new LRUAlgorithm();
+    ...
+}
+</pre></div>
+
+
+<p>Each of those algorithm objects implement basic methods from a ReplacementAlgorithm interface, but they also have their own logic (eg. debugging output or actions performed on internal queues). Thus, the VMM calls various methods depending on the page replacement algorithm selected by the user:</p>
+<div class="highlight"><pre>if (this.printAdditionalDetails) {
+    if (this.algo instanceof FIFOAlgorithm) {
+        ((FIFOAlgorithm) this.algo).printQueueContents();
+        System.out.printf(&quot;\n&quot;);
+    } else if (this.algo instanceof PhysicalClockAlgorithm) {
+        ((PhysicalClockAlgorithm) this.algo).printClock();
+        System.out.printf(&quot;\n&quot;);
+...
+</pre></div>
+
+
+<p>At one point, one of the replacement algorithms was not updating its internal state correctly, thus causing it to replace pages incorrectly. Here's where the sleep deprivation came in: I actually spent a non-trivial amount of time (about 1-2 hours) refactoring my code because I thought the type checking statements above identified every algorithm as a ReplacementAlgorithm, and not as a LRUAlgorithm, NRUAlgorithm, etc. </p>
+<p>In retrospect, it was a dumb assumption. Java interfaces are a basic example of OO inheritance, and an object of a class that implements an interface clearly has both the class's type and the interface's type. The behavior is the same in Python--here's an example:</p>
+<div class="highlight"><pre>&gt;&gt;&gt; class Foo(object): pass
+&gt;&gt;&gt; class Bar(Foo): pass
+&gt;&gt;&gt; isinstance(Bar(), Foo)
+True
+</pre></div>
+
+
+<p>Anyway, just an example of a silly mistake fueled by sleep deprivation that cost a few hours of lost dev time. Make sure to get your sleep!</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Alex Companioni - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

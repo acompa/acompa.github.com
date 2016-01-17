@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>On Statistics and Machine Learning</title><link href="http://acompa.net/" rel="alternate"></link><link href="http://acompa.net/feeds/misc.atom.xml" rel="self"></link><id>http://acompa.net/</id><updated>2012-10-05T17:11:00-04:00</updated><entry><title>Presenting leptoid at Surge 2012</title><link href="http://acompa.net/presenting-leptoid-at-surge-2012.html" rel="alternate"></link><updated>2012-10-05T17:11:00-04:00</updated><author><name>Alex Companioni</name></author><id>tag:acompa.net,2012-10-05:presenting-leptoid-at-surge-2012.html</id><summary type="html">&lt;p&gt;I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code instrumentation, and server management and deployment, and I recently presented about what I learned at &lt;a href="http://omniti.com/surge/2012"&gt;Surge Conference 2012&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The talk focused on instrumentation more than anything else, and you can check out the slides &lt;a href="https://www.dropbox.com/s/7wcaj6c892we2n5/Autoscaling%20with%20Leptoid-Final.pdf"&gt;here&lt;/a&gt;. If capacity planning sounds interesting, we also open-sourced leptoid -- the autoscaling library I worked on -- so that you could review the source on &lt;a href="https://github.com/knewton/leptoid"&gt;Github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I also had a chance to speak with two excellent guys, Nathan Harvey and Dave Zwieback, for &lt;a href="http://foodfightshow.org/2012/09/surge-update-knewton.html"&gt;an interview&lt;/a&gt; on Food Fight. During that interview I talked about my Surge presentation and experiences as a junior engineer at Knewton.&lt;/p&gt;
+&lt;p&gt;During my talk I mentioned the unimportance of a good capacity forecasting model relative to good instrumentation and deployment practices. This was revelatory. I actually spent the majority of my summer outside of my machine learning &amp;amp; statistical wheelhouse, instead working on this autoscaling project with Knewton's systems team. Lots of time went into&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;instrumenting code with &lt;a href="https://github.com/etsy/statsd"&gt;statsd&lt;/a&gt; and Coda Hale's &lt;a href="https://github.com/codahale/metrics"&gt;metrics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;managing a cluster of &lt;a href="https://github.com/graphite-project"&gt;Graphite&lt;/a&gt; hosts&lt;/li&gt;
+&lt;li&gt;fumbling around with &lt;a href="http://www.opscode.com/chef/"&gt;Chef&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That list of items looks really obnoxious, I know, but I don't want to forget about them. I simultaneously studied operating systems at NYU during this project, and have a list of topics I'd like to dig into once things slow down:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scheduling and thread prioritization (beyond aging and "NRU" scheduling algorithms)&lt;/li&gt;
+&lt;li&gt;networking, especially DNS lookups and comparisons between proxies&lt;/li&gt;
+&lt;li&gt;sharding (or distributed storage, especially w.r.t something like HDFS)&lt;/li&gt;
+&lt;li&gt;kernel v. user modes, and how they work in practice&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Either way, I feel like a better developer after this summer. It was an excellent experience, and Dave and Peter Norton (who really needs to get on Twitter or Pinterest or something) were excellent mentors.&lt;/p&gt;</summary></entry><entry><title>Installing R and rpy2 from scratch</title><link href="http://acompa.net/installing-r-and-rpy2-from-scratch.html" rel="alternate"></link><updated>2012-09-07T18:40:00-04:00</updated><author><name>Alex Companioni</name></author><id>tag:acompa.net,2012-09-07:installing-r-and-rpy2-from-scratch.html</id><summary type="html">&lt;p&gt;Python has seen a bit of an explosion in packages for statistics, machine learning, and data structures to support the two. Between &lt;a href="pandas.pydata.org"&gt;pandas&lt;/a&gt;, &lt;a href="statsmodels.sourceforge.net"&gt;statsmodels&lt;/a&gt;, &lt;a href="scikit-learn.org"&gt;scikit-learn&lt;/a&gt;, and &lt;a href="http://docs.scipy.org/doc/scipy/reference/stats.html"&gt;scipy.stats&lt;/a&gt; Python developers now have a miniature data stack for econometrics, machine learning algorithms, or statistics, as well as sensible data structures with tons of convenience functions.&lt;/p&gt;
+&lt;p&gt;Still, those packages may not provide &lt;em&gt;everything&lt;/em&gt; you need to get the job done. If, like me, you're a Python dev analyzing some time series data, you might need to visit &lt;a href="r-project.org"&gt;an old friend&lt;/a&gt; with excellent, full-featured statistical packages like &lt;a href="http://cran.r-project.org/web/packages/caret/index.html"&gt;caret&lt;/a&gt; and &lt;a href="http://robjhyndman.com/software/forecast/"&gt;forecast&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You'll be happy to know that, with &lt;a href="http://rpy.sourceforge.net/rpy2.html"&gt;rpy2&lt;/a&gt;, you can have your cake and eat it too. Installing rpy2 can be painful, however, especially if you're working with EC2 instances on Amazon Web Services. New instances contain little or no GNU tools, making an R + rpy2 installation harder than&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install r-base r-base-dev python-dev python-setuptools
+sudo easy_install pip
+for pkg in numpy scipy rpy2; do
+    sudo pip install pkg
+done
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I've attached a script below to help devs get past this problem. It has been tested to work on Ubuntu 11.10, and I don't expect any compatibility issues with newer versions. &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://gist.github.com/3700827"&gt;Here's a Gist&lt;/a&gt; with the script. If you run into issues, please let me know and I'll try to fix them and update the script.&lt;/p&gt;</summary></entry><entry><title>Sleeplessness =&gt; bad code</title><link href="http://acompa.net/sleeplessness-bad-code.html" rel="alternate"></link><updated>2012-08-03T18:42:00-04:00</updated><author><name>Alex Companioni</name></author><id>tag:acompa.net,2012-08-03:sleeplessness-bad-code.html</id><summary type="html">&lt;p&gt;David Smith recently pushed out &lt;a href="http://developingperspective.com/2012/08/02/70/"&gt;an excellent episode&lt;/a&gt; of his "Developing Perspectives" podcast. In it, he discusses the importance of rest, especially as it relates to the quality of a developer's work.&lt;/p&gt;
+&lt;p&gt;A big product launch at Knewton and a semester-long OS class compressed into 10 weeks leaves little time for rest, so I wasn't surprised to notice a sizable drop-off in my cognitive ability while working on my last OS lab a few weeks ago. My lab (a toy virtual memory management unit responsible for virtual paging) is written in Java -- a language I'm learning this summer -- and while I have a rational understanding of how it works (having studied it in a programming languages class last semester), I'm not 100% comfortable with it just yet.&lt;/p&gt;
+&lt;p&gt;That discomfort manifested as a few, time-consuming mistakes during a couple of tough, sleepless weeks. As an example, I'll talk about how I made a silly type casting mistake.&lt;/p&gt;
+&lt;p&gt;My toy virtual memory manager (VMM) needed to swap pages in and out of physical memory whenever new instructions would arrive. There are a number of algorithms for page replacement, so I gave the user the option of selecting from a subset of these:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;private ReplacementAlgorithm algo;
+...
+// Attach the right algorithm.
+this.algo = selectReplacementAlgorithm(algo);
+...
+private ReplacementAlgorithm selectReplacementAlgorithm(String choice) {
+    if (choice.matches(&amp;quot;N&amp;quot;)) {
+        return new NRUAlgorithm();
+    } else if (choice.matches(&amp;quot;l&amp;quot;)) {
+        return new LRUAlgorithm();
+    ...
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Each of those algorithm objects implement basic methods from a ReplacementAlgorithm interface, but they also have their own logic (eg. debugging output or actions performed on internal queues). Thus, the VMM calls various methods depending on the page replacement algorithm selected by the user:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;if (this.printAdditionalDetails) {
+    if (this.algo instanceof FIFOAlgorithm) {
+        ((FIFOAlgorithm) this.algo).printQueueContents();
+        System.out.printf(&amp;quot;\n&amp;quot;);
+    } else if (this.algo instanceof PhysicalClockAlgorithm) {
+        ((PhysicalClockAlgorithm) this.algo).printClock();
+        System.out.printf(&amp;quot;\n&amp;quot;);
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;At one point, one of the replacement algorithms was not updating its internal state correctly, thus causing it to replace pages incorrectly. Here's where the sleep deprivation came in: I actually spent a non-trivial amount of time (about 1-2 hours) refactoring my code because I thought the type checking statements above identified every algorithm as a ReplacementAlgorithm, and not as a LRUAlgorithm, NRUAlgorithm, etc. &lt;/p&gt;
+&lt;p&gt;In retrospect, it was a dumb assumption. Java interfaces are a basic example of OO inheritance, and an object of a class that implements an interface clearly has both the class's type and the interface's type. The behavior is the same in Python--here's an example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; class Foo(object): pass
+&amp;gt;&amp;gt;&amp;gt; class Bar(Foo): pass
+&amp;gt;&amp;gt;&amp;gt; isinstance(Bar(), Foo)
+True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Anyway, just an example of a silly mistake fueled by sleep deprivation that cost a few hours of lost dev time. Make sure to get your sleep!&lt;/p&gt;</summary></entry><entry><title>Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</title><link href="http://acompa.net/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency.html" rel="alternate"></link><updated>2012-07-20T18:43:00-04:00</updated><author><name>Alex Companioni</name></author><id>tag:acompa.net,2012-07-20:using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency.html</id><summary type="html">&lt;p&gt;&lt;em&gt;This post is reproduced from &lt;a href="http://www.knewton.com/tech/blog/2012/06/understanding-student-performance-with-item-response-theory/"&gt;Knewton's tech blog&lt;/a&gt;, where I posted it a few months ago.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Imagine for a second that you’re teaching a math remediation course full of fourth graders. You’ve just administered a test with 10 questions. Of those 10 questions, two questions are trivial, two are incredibly hard, and the rest are equally difficult. Now imagine that two of your students take this test and answer nine of the 10 questions correctly. The first student answers an easy question incorrectly, while the second answers a hard question incorrectly. How would you try to identify the student with higher ability?&lt;/p&gt;
+&lt;p&gt;Under a traditional grading approach, you would assign both students a score of 90 out of 100, grant both of them an A, and move on to the next test. This approach illustrates a key problem with measuring student ability via testing instruments: test questions do not have uniform characteristics. So how can we measure student ability while accounting for differences in questions?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Item response theory&lt;/strong&gt; (IRT) attempts to model student ability using question level performance instead of aggregate test level performance. Instead of assuming all questions contribute equally to our understanding of a student’s abilities, IRT provides a more nuanced view on the information each question provides about a student. What kind of features can a question have? Let’s consider some examples.&lt;/p&gt;
+&lt;p&gt;First, think back to an exam you have previously taken. Sometimes you breeze through the first section, work through a second section of questions, then battle with a final section until the exam ends. In the traditional grading paradigm described earlier, a correct answer on the first section would count just as much as a correct answer on the final section, despite the fact that the first section is easier than the last! Similarly, a student demonstrates greater ability as she answers harder questions correctly; the traditional grading scheme, however, completely ignores each question’s difficulty when grading students!&lt;/p&gt;
+&lt;p&gt;The one-parameter logistic (1PL) IRT model attempts to address this by allowing each question to have an independent difficulty variable. It models the probability of a correct answer using the following logistic function:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="1PL" src="http://www.knewton.com/tech/files/2012/06/alex1-300x60.png" /&gt;&lt;/p&gt;
+&lt;p&gt;where j represents the question of interest, theta is the current student’s ability, and beta is item j’s difficulty. This function is also known as the item response function. We can examine its plot (with different values of beta) below&lt;/p&gt;
+&lt;p&gt;&lt;img alt="1PL plot" src="https://tech.knewton.com/files/2012/06/alex2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;to confirm a couple of things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For a given ability level, the probability of a correct answer increases as item difficulty decreases. It follows that, between two questions, the question with a lower beta value is easier.&lt;/li&gt;
+&lt;li&gt;Similarly, for a given question difficulty level, the probability of a correct answer increases as student ability increases. In fact, the curves displayed above take a sigmoidal form, thus implying that the probability of a correct answer increases monotonically as student ability increases.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now consider using the 1PL model to analyze test responses provided by a group of students. If one student answers one question, we can only draw information about that student’s ability from the first question. Now imagine a second student answers the same question as well as a second question, as illustrated below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="graph of answers" src="https://tech.knewton.com/files/2012/06/alex3.png" /&gt;&lt;/p&gt;
+&lt;p&gt;We immediately have the following additional information about both students and both test questions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We now know more about student 2’s ability relative to student 1 based on student 2’s answer to the first question. For example, if student 1 answered correctly and student 2 answered incorrectly we  know that student 1’s ability is greater than student 2’s ability.&lt;/li&gt;
+&lt;li&gt;We also know more about the first question’s difficulty after student 2 answered the second question. Continuing the example from above, if student 2 answers the second question correctly, we know that Q1 likely has a higher difficulty than Q2 does.&lt;/li&gt;
+&lt;li&gt;Most importantly, however, we now know more about the first student! Continuing the example even further, we now know that Q1 is more difficult than initially expected. Student 1 answered the first question correctly, suggesting that student 1 has greater ability than we initially estimated!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This form of message passing via item parameters is the key distinction between IRT’s estimates of student ability and other naive approaches (like the grading scheme described earlier). Interestingly, it also suggests that one could develop an online version of IRT that updates ability estimates as more questions and answers arrive!&lt;/p&gt;
+&lt;p&gt;But let’s not get ahead of ourselves. Instead, let’s continue to develop item response theory by considering the fact that students of all ability levels might have the same probability of correctly answering a poorly-written question. When discussing IRT models, we say that these questions have a low discrimination value, since they do not discriminate between students of high- or low-ability. Ideally, a good question (i.e. one with a high discrimination) will maximally separate students into two groups: those with the ability to answer correctly, and those without.&lt;/p&gt;
+&lt;p&gt;This gets at an important point about test questions: some questions do a better job than others of distinguishing between students of similar abilities. The two-parameter logistic (2PL) IRT model incorporates this idea by attempting to model each item’s level of discrimination between high- and low-ability students. This can be expressed as a simple tweak to the 1PL:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="2PL" src="http://www.knewton.com/tech/files/2012/06/alex4-300x66.png" /&gt;&lt;/p&gt;
+&lt;p&gt;How does the addition of alpha, the item discrimination parameter, affect our model? As above, we can take a look at the item response function while changing alpha a bit:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="2PL plot" src="https://tech.knewton.com/files/2012/06/alex5.png" /&gt;&lt;/p&gt;
+&lt;p&gt;As previously stated, items with high discrimination values can distinguish between students of similar ability. If we’re attempting to compare students with abilities near zero, a higher discrimination sharply decreases the probability that a student with ability &amp;lt; 0 will answer correctly, and increases the probability that a student with ability &amp;gt; 0 will answer correctly.&lt;/p&gt;
+&lt;p&gt;We can even go a step further here, and state that an adaptive test could use a bank of high-discrimination questions of varying difficulty to optimally identify a student’s abilities. As a student answers each of these high-discrimination questions, we could choose a harder question if the student answers correctly (and vice versa). In fact, one could even identify the student’s exact ability level via binary search, if the student is willing to work through a test bank with an infinite number of high-discrimination questions with varying difficulty!&lt;/p&gt;
+&lt;p&gt;&lt;img alt="difficulties" src="http://www.knewton.com/tech/files/2012/06/alex6-300x253.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Of course, the above scenario is not completely true to reality. Sometimes students will identify the correct answer by simply guessing! We know that answers can result from concept mastery or filling in your Scantron like a Christmas tree. Additionally, students can increase their odds of guessing a question correctly by ignoring answers that are obviously wrong. We can thus model each question’s “guess-ability” with the three-parameter logistic (3PL) IRT model. The 3PL’s item response function looks like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="3PL" src="https://tech.knewton.com/files/2012/06/alex7.png" /&gt;&lt;/p&gt;
+&lt;p&gt;where chi represents the item’s “pseudoguess” value. Chi is not considered a pure guessing value, since students can use some strategy or knowledge to eliminate bad guesses. Thus, while a “pure guess” would be the reciprocal of the number of options (i.e. a student has a one-in-four chance of guessing the answer to a multiple-choice question with four options), those odds may increase if the student manages to eliminate an answer (i.e. that same student increases her guessing odds to one-in-three if she knows one option isn’t correct).&lt;/p&gt;
+&lt;p&gt;As before, let’s take a look at how the pseudoguess parameter affects the item response function curve:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="3PL plot" src="https://tech.knewton.com/files/2012/06/alex8.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Note that students of low ability now have a higher probability of guessing the question’s answer. This is also clear from the 3PL’s item response function (chi is an additive term and the second term is non-negative, so the probability of answering correctly is at least as high as chi). Note that there are a few general concerns in the IRT literature regarding the 3PL, especially regarding whether an item’s “guessability” is instead a part of a student’s “testing wisdom,” which arguably represents some kind of student ability.&lt;/p&gt;
+&lt;p&gt;Regardless, at Knewton we’ve found IRT models to be extremely helpful when trying to understand our students’ abilities by examining their test performance.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;de Ayala, R.J. (2008). The Theory and Practice of Item Response Theory, New York, NY: The Guilford Press.&lt;/li&gt;
+&lt;li&gt;Kim, J.S., Bolt, D (2007). “Estimating Item Response Theory Models Using Markov Chain Monte Carlo Methods.” Educational Measurement: Issues and Practices 38 (51).&lt;/li&gt;
+&lt;li&gt;Sheng, Y (2008). “Markov Chain Monte Carlo Estimation of Normal Ogive IRT Models in MATLAB.” Journal of Statistical Software 25 (8).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;Also, thanks to Jesse St. Charles, George Davis, and Christina Yu for their helpful feedback on this post!&lt;/em&gt;&lt;/p&gt;</summary></entry></feed>
