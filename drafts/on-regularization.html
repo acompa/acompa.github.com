@@ -6,7 +6,7 @@
 	<meta name="author" content="Alex Companioni">
 	
 
-  <meta name="description" content="DRAFT: regularization. A couple of different channels converged on discussions of regularization recently: Julia Evans recently wrote about the bias-variance trade-off -- go read her post, it's great! -- and asked some questions about regularization in it; one of my coworkers -- and I'm paraphrasing here, Ravi -- called LASSO one of ...">
+  <meta name="description" content="A couple of different channels converged on discussions of regularization recently: Julia Evans recently wrote about the bias-variance trade-off -- go read her post, it's great! -- and asked some questions about regularization in it; one of my coworkers -- and I'm paraphrasing here, Ravi -- called LASSO one of the most ...">
 
 
 
@@ -40,8 +40,7 @@
     </address>
   in <a href="/category/misc.html">misc</a>
 </div>		
-		<p>DRAFT: regularization.</p>
-<p>A couple of different channels converged on discussions of regularization recently:</p>
+		<p>A couple of different channels converged on discussions of regularization recently:</p>
 <ul>
 <li>
 <p>Julia Evans recently wrote about <a href="http://jvns.ca/blog/2016/01/02/winning-the-bias-variance-tradeoff/">the bias-variance trade-off</a> -- go read her post, it's great! -- and asked some questions about regularization in it;</p>
@@ -70,7 +69,7 @@
 <p><img alt="Here’s a novel plot you’ve never seen before!!11" src="/images/reg-pred-error.png" /></p>
 <p><strong>This is the first benefit of regularization: it will likely improve your model’s prediction accuracy on previously unseen data.</strong> I use the word “likely” here because you <em>could</em> be operating in the left region of that curve. If that’s the case, you might need to start engineering some features!</p>
 <p>What’s the second benefit of regularizing? I previously mentioned that regularization could actually zero our weights for some of your features. This is a nice side effective of regularization—the data helps us with model selection by zeroing out some features! <strong>That’s actually the second benefit of regularization: it helps us with model selection by only keeping those features with the strongest effects on our labels.</strong> At iHeartRadio we talk about “throwing the kitchen sink” at a modeling problem, knowing that aggressive regularization can limit the effects of spurious predictors. Simpler natural language techniques also take this path, using bag-of-word features, the LASSO, and high values of <span class="math">\(\lambda\)</span> to drop all but the most important features.</p>
-<h2>Ok—I’ll take one, uh, regularization, to go!</h2>
+<h2>Ok, let’s regularize!</h2>
 <p>With these benefits in mind, it’s easy to add a regularization term to your objective function. You face two decisions:</p>
 <ol>
 <li>Your choice of function <span class="math">\(R(\mathbf{w})\)</span>, and</li>
@@ -79,9 +78,9 @@
 <p>When addressing the first question, you’ll probably choose between the 1-norm (known as the LASSO, or L1-regularization) and the 2-norm (known as ridge regularization or L2-regularization). These regularizers induce different behaviors in your learned weights. While ridge regularization nudges learned weights downward, the LASSO strongly encourages sparsity in the learned model by favoring <span class="math">\(\mathbf{w}_f = 0\)</span> for any feature <span class="math">\(f\)</span>.</p>
 <p>Here’s a brief explanation as to why that’s the case. The objective function <span class="math">\(L(w, x)\)</span> above can be restated as a constrained optimization problem of the form:</p>
 <div class="math">$$L(\mathbf{w}) = \sum_{i=1}^{N}(y_i  - \mathbf{w}^{T}x_i)^{2}$$</div>
-<p>subject to the constraint <span class="math">\(R(\mathbf{w}) \le \lambda\)</span>. Since we’ve stuck with the sum of squares error, we can visualize this optimization problem in two dimensions as follows:</p>
+<p>subject to the constraint <span class="math">\(R(\mathbf{w}) \le \lambda\)</span>. Assume that <span class="math">\(\mathbf{w}\)</span> and <span class="math">\(x_i\)</span> are both in <span class="math">\(\mathbb{R}^2\)</span>. Since we’ve stuck with the sum of squares error, we can visualize this optimization problem as follows:</p>
 <p><img alt="I know this plot says \beta, but just ignore that. :)" src="/images/reg-opt-plots.png" /></p>
-<p>The blue region in each plot is the constrained space of solutions, while the red contours represent potential values of <span class="math">\(\hat{\mathbf{w}}\)</span>. We want to find the point inside the constrained space that sits on the contour closest to the solution; for the LASSO region on the left, that point is far more likely to sit along an axis, which would thus yield a sparser solution  for <span class="math">\(\hat{\mathbf{w}}\)</span>.</p>
+<p>These plots show the space of possible assignments to the parameter estimate <span class="math">\(\mathbf{w}\)</span> (let’s assume the component of <span class="math">\(\beta\)</span> along each axis is instead a component of <span class="math">\(\mathbf{w}\)</span>). The blue region in each plot is the constrained space of solutions, while the red contours represent potential values of <span class="math">\(\hat{\mathbf{w}}\)</span>. We want to find the point inside the constrained space that sits on the contour closest to the solution; for the LASSO region on the left, that point is far more likely to sit along an axis, which would thus yield a sparser solution for <span class="math">\(\hat{\mathbf{w}}\)</span>.</p>
 <p>Returning to the second question, it is common to treat <span class="math">\(\lambda\)</span> as a parameter selected via grid search (just make sure to use cross-validation). You could also instead roll with the <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html">ElasticNet algorithm</a>, which regularizes your objective function using <span class="math">\(R(\mathbf{w}) = \alpha*\sum_{i=1}^{M}|\mathbf{w}_i| + (1-\alpha)*\sum_{i=1}^{M}\mathbf{w}_{i}^{2}\)</span> while adaptively choosing the best <span class="math">\(\alpha\)</span>.</p>
 <h2>Final comments</h2>
 <p>Some notes on regularizing:</p>
@@ -96,7 +95,7 @@
 </ul>
 <p>Finally, I aimed for a very straightforward discussion of regularization here. Some interesting follow-up resources:</p>
 <ul>
-<li>EoSL introduces a Bayesian interpretation of regularization — ridge regularization is equivalent to imposing a Gaussian prior on the model parameters — and comments on the relationship to the singular value decomposition (as a feature's singular value under the SVD of \mathbf{X} decreases, its corresponding weight is also downweighted by regularization). Interesting stuff.</li>
+<li>EoSL introduces a Bayesian interpretation of regularization — ridge regularization is equivalent to imposing a Gaussian prior on the model parameters — and comments on the relationship to the singular value decomposition (as a feature's singular value under the SVD of <span class="math">\(\mathbf{X}\)</span> decreases, its corresponding weight is also downweighted by regularization). Interesting stuff.</li>
 <li>This post used the sum of squares for simplicity, although regularization extends to all sorts of model classes. Section 5.5 of <a href="http://research.microsoft.com/en-us/um/people/cmbishop/PRML/">Pattern Recognition and Machine Learning</a> explains how regularization can also mitigate over-fitting when training neural networks, for example.</li>
 </ul>
 <h2>References</h2>
@@ -144,20 +143,20 @@
         "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
         "    }, " +
         "}); " +
-        "if ('default' !== 'default') {" +
+        "if ('SansSerif' !== 'default') {" +
             "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
                 "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['normal'].fonts.unshift('MathJax_SansSerif');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_SansSerif-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_SansSerif-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_SansSerif-italic');" +
             "});" +
             "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
                 "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['normal'].fonts.unshift('MathJax_SansSerif');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_SansSerif-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_SansSerif-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_SansSerif-italic');" +
             "});" +
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);

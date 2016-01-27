@@ -29,32 +29,129 @@
 
 
       <article>
-        <h1><a href="/beyond-trending-topics.html">Beyond Trending Topics: identifying important conversations in communities</a></h1>
-        <p>Last summer, while at Betaworks, <a href="http://twitter.com/rj_here">Rohit Jain</a> and I co-wrote a blog
-post on detecting trending topics. Here's a blurb:</p>
-<blockquote>
-<p><a href="http://scalemodel.com">Scale Model</a>, one of the newest companies to launch out of betaworks, helps
-identify, follow and reach communities on Twitter. While there’s a great
-visual dashboard that gives us a way to look at what’s bubbling up from
-within communities, it is still hard to evaluate which items appear on a
-regular basis, and which are more unique. For example, in the <a href="http://scalemodel.com/dashboard/33/">US politics</a>
-model, the <a href="http://scalemodel.com/dashboard/shares/33/hashtags/WakeUpAmerica">#WakeUpAmerica</a> hashtag is used on a regular basis by conservatives,
-hence appears on the dashboard quite often. Wouldn’t it be great to know when
-activity around a certain hashtag is unique? Or more specifically, deviates
-from the expected behavior? Since we can’t expect users to be continuously
-glued to our dashboard, it’d be great if we could send out notifications
-whenever something important happens.</p>
-</blockquote>
-<p>Rohit and I spent quite a bit of time discussing time series decomposition and
-the messier parts of working with short-form text pulled from social network
-activity. I especially liked the use of a chat bot to check the output of a key model. Rohit
-deserves full credit for that great idea (as well as the rest of the working code).</p>
-<p>I'm not sure if this work made it into Scale Model or any of the tooling they
-offer to their clients -- I left before I could convert Rohit's prototype to
-a working service -- but this is definitely a problem Frank and his team
-continue to work on.</p>
-<p>Head on over to <a href="http://data.betaworks.com/beyond-trending-topics-identifying-important-conversations-in-communities/">the full post</a>
-on the Dataworks blog for more.</p>
+        <h1><a href="/on-regularization.html">Introductory notes on regularization</a></h1>
+        <p>A couple of different channels converged on discussions of regularization recently:</p>
+<ul>
+<li>
+<p>Julia Evans recently wrote about <a href="http://jvns.ca/blog/2016/01/02/winning-the-bias-variance-tradeoff/">the bias-variance trade-off</a> -- go read her post, it's great! -- and asked some questions about regularization in it;</p>
+</li>
+<li>
+<p>one of my coworkers -- and I'm paraphrasing here, Ravi -- called LASSO one of the most important statistical innovations in recent decades;</p>
+</li>
+<li>
+<p>and I also learned about the ElasticNet algorithm recently, a great tool for improving the predictive accuracy of your models (more on that later).</p>
+</li>
+</ul>
+<p>Now that this blog is alive and kicking again, I figured I'd post some notes I took while refreshing my memory on regularization. I'll define what it is and how it works, then roll into some comments on applying regularization and debugging your regularized models.</p>
+<h2>First though, some shout-outs</h2>
+<p>This post is really a tl;dr of some excellent resources on regularization. If you'd like more detail, check out the paper introducing <a href="http://statweb.stanford.edu/~tibs/lasso/lasso.pdf">the LASSO</a> or <a href="http://math.arizona.edu/~hzhang/math574m/Read/Ridge.pdf">ridge regression</a>.</p>
+<p>The eponymous <a href="http://statweb.stanford.edu/~tibs/ElemStatLearn/">Elements of Statistical Learning</a> also has a nice review of regularization. I would recommend reading the sections on model selection (Chapter 2.9), model complexity (Chapter 7.2), and subset selection (Chapter 3.4) back-to-back-to-back; this will contextualize regularization nicely with the related modeling concerns.</p>
+<p>Finally, there's a new (free!) book on the LASSO from <a href="http://web.stanford.edu/~hastie/StatLearnSparsity/">Hastie, Tibshirani, and Wainwright</a>. It has an interesting outline, and the first part includes a great overview of the LASSO.</p>
+<h2>On the regular(ization of models)</h2>
+<p>Assume we have a multivariate dataset <span class="math">\(X = x_1, x_2, … x_i, …, x_n\)</span>, with each observation consisting of <span class="math">\(f\)</span> features. We would then like to fit a linear model of the form</p>
+<div class="math">$$\hat{y} = \mathbf{w}^T\mathbf{x}$$</div>
+<p>using this dataset. Regularization is a process for fitting a statistical model against a modified objective function of the form:</p>
+<div class="math">$$L(\mathbf{w}) = \sum_{i=1}^{N}(y_i  - \mathbf{w}^{T}x_i)^{2} + \lambda R(\mathbf{w})$$</div>
+<p>We use the sum of squares error for simplicity, since we will instead focus on the new term <span class="math">\(R(\mathbf{w})\)</span>. Common values for this function include the 1-norm <span class="math">\(R(\mathbf{w}) = \sum_{i=1}^{M}|\mathbf{w}_i|\)</span> and the 2-norm <span class="math">\(R(\mathbf{w}) = \sum_{i=1}^{M}\mathbf{w}_{i}^{2}\)</span>. We’ll come back to these later, but note that both regularizers increase monotonically: as <span class="math">\(\mathbf{w}\)</span> grows in size, so does the increase in <span class="math">\(L(\mathbf{w})\)</span> due to <span class="math">\(R(\mathbf{w})\)</span>. This has the effect of discouraging larger values of our estimated parameterization <span class="math">\(\hat{\mathbf{w}}\)</span>, so that its size is pushed downward in proportion to the chosen <span class="math">\(\lambda\)</span>.</p>
+<h2>Why regularize?</h2>
+<p>This downward nudge to <span class="math">\(\mathbf{w}\)</span> reduces the complexity of our model. Practically speaking, a lower <span class="math">\(\mathbf{w}_f\)</span> decreases the amount contributed by each feature <span class="math">\(\mathbf{x}_f\)</span> to our estimate <span class="math">\(\hat{y}\)</span>. In the extreme, <span class="math">\(\mathbf{w}_f = 0\)</span> and the feature <span class="math">\(f\)</span> contributes nothing to the estimate <span class="math">\(\hat{y}\)</span>.</p>
+<p>As Julia <a href="http://jvns.ca/blog/2016/01/02/winning-the-bias-variance-tradeoff/">suggested in her post</a>, limiting model complexity exchanges some of the error resulting from variance for some error resulting from bias. If you’re reading this post you’ve likely seen this plot a million times before — seriously, check out <a href="https://www.google.com/search?q=model+complexity+prediction+error&amp;espv=2&amp;biw=1243&amp;bih=669&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=0ahUKEwiqxcqYocHKAhUGcz4KHRj5BEcQ_AUIBigB">these Google Image results</a>, it’s everywhere — but it’s useful for understanding how your model’s complexity influences it’s generalizability:</p>
+<p><img alt="Here’s a novel plot you’ve never seen before!!11" src="/images/reg-pred-error.png" /></p>
+<p><strong>This is the first benefit of regularization: it will likely improve your model’s prediction accuracy on previously unseen data.</strong> I use the word “likely” here because you <em>could</em> be operating in the left region of that curve. If that’s the case, you might need to start engineering some features!</p>
+<p>What’s the second benefit of regularizing? I previously mentioned that regularization could actually zero our weights for some of your features. This is a nice side effective of regularization—the data helps us with model selection by zeroing out some features! <strong>That’s actually the second benefit of regularization: it helps us with model selection by only keeping those features with the strongest effects on our labels.</strong> At iHeartRadio we talk about “throwing the kitchen sink” at a modeling problem, knowing that aggressive regularization can limit the effects of spurious predictors. Simpler natural language techniques also take this path, using bag-of-word features, the LASSO, and high values of <span class="math">\(\lambda\)</span> to drop all but the most important features.</p>
+<h2>Ok, let’s regularize!</h2>
+<p>With these benefits in mind, it’s easy to add a regularization term to your objective function. You face two decisions:</p>
+<ol>
+<li>Your choice of function <span class="math">\(R(\mathbf{w})\)</span>, and</li>
+<li>Your choice of regularizing parameter <span class="math">\(\lambda\)</span></li>
+</ol>
+<p>When addressing the first question, you’ll probably choose between the 1-norm (known as the LASSO, or L1-regularization) and the 2-norm (known as ridge regularization or L2-regularization). These regularizers induce different behaviors in your learned weights. While ridge regularization nudges learned weights downward, the LASSO strongly encourages sparsity in the learned model by favoring <span class="math">\(\mathbf{w}_f = 0\)</span> for any feature <span class="math">\(f\)</span>.</p>
+<p>Here’s a brief explanation as to why that’s the case. The objective function <span class="math">\(L(w, x)\)</span> above can be restated as a constrained optimization problem of the form:</p>
+<div class="math">$$L(\mathbf{w}) = \sum_{i=1}^{N}(y_i  - \mathbf{w}^{T}x_i)^{2}$$</div>
+<p>subject to the constraint <span class="math">\(R(\mathbf{w}) \le \lambda\)</span>. Assume that <span class="math">\(\mathbf{w}\)</span> and <span class="math">\(x_i\)</span> are both in <span class="math">\(\mathbb{R}^2\)</span>. Since we’ve stuck with the sum of squares error, we can visualize this optimization problem as follows:</p>
+<p><img alt="I know this plot says \beta, but just ignore that. :)" src="/images/reg-opt-plots.png" /></p>
+<p>These plots show the space of possible assignments to the parameter estimate <span class="math">\(\mathbf{w}\)</span> (let’s assume the component of <span class="math">\(\beta\)</span> along each axis is instead a component of <span class="math">\(\mathbf{w}\)</span>). The blue region in each plot is the constrained space of solutions, while the red contours represent potential values of <span class="math">\(\hat{\mathbf{w}}\)</span>. We want to find the point inside the constrained space that sits on the contour closest to the solution; for the LASSO region on the left, that point is far more likely to sit along an axis, which would thus yield a sparser solution for <span class="math">\(\hat{\mathbf{w}}\)</span>.</p>
+<p>Returning to the second question, it is common to treat <span class="math">\(\lambda\)</span> as a parameter selected via grid search (just make sure to use cross-validation). You could also instead roll with the <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html">ElasticNet algorithm</a>, which regularizes your objective function using <span class="math">\(R(\mathbf{w}) = \alpha*\sum_{i=1}^{M}|\mathbf{w}_i| + (1-\alpha)*\sum_{i=1}^{M}\mathbf{w}_{i}^{2}\)</span> while adaptively choosing the best <span class="math">\(\alpha\)</span>.</p>
+<h2>Final comments</h2>
+<p>Some notes on regularizing:</p>
+<ul>
+<li>You should standardize your input dataset so that it is distributed according to <span class="math">\(\mathcal{N}(0, 1)\)</span>, since solutions to the regularized objective function depend on the scale of your features.</li>
+<li>Both scikit-learn and R have great regularization packages. Check out the <a href="http://scikit-learn.org/stable/modules/linear_model.html">scikit-learn docs on GLMs</a> or <a href="http://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html">R’s glmnet</a>.</li>
+</ul>
+<p>Julia asked about how one can debug regularization. It is not guaranteed that a regularized model generalizes better than an unregularized model, but I have observed the following in the past:</p>
+<ul>
+<li>If introducing LASSO to your model forces your coefficients to zero, your model is not that great. You might need to reconsider your features.</li>
+<li>Try estimating <span class="math">\(\mathbf{w}\)</span> using vanilla regression, then check the 1-norm and 2-norm of <span class="math">\(\hat{\mathbf{w}}\)</span>. Intuitively-speaking, this unregularized estimate should have a higher norm than its regularized counterpart.</li>
+</ul>
+<p>Finally, I aimed for a very straightforward discussion of regularization here. Some interesting follow-up resources:</p>
+<ul>
+<li>EoSL introduces a Bayesian interpretation of regularization — ridge regularization is equivalent to imposing a Gaussian prior on the model parameters — and comments on the relationship to the singular value decomposition (as a feature's singular value under the SVD of <span class="math">\(\mathbf{X}\)</span> decreases, its corresponding weight is also downweighted by regularization). Interesting stuff.</li>
+<li>This post used the sum of squares for simplicity, although regularization extends to all sorts of model classes. Section 5.5 of <a href="http://research.microsoft.com/en-us/um/people/cmbishop/PRML/">Pattern Recognition and Machine Learning</a> explains how regularization can also mitigate over-fitting when training neural networks, for example.</li>
+</ul>
+<h2>References</h2>
+<p>What I actually referenced while writing this post:</p>
+<ol>
+<li>Hastie, T. et. al. (2009). The Elements of Statistical Learning: Data Mining, Inference, and Prediction. Springer-Verlag.</li>
+<li>Hastie, T. et. al. (2015). Statistical Learning with Sparsity: The Lasso and Generalizations. Chapman and Hall.</li>
+<li>Some Wikipedia on various things to refresh my memory.</li>
+</ol>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('SansSerif' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_SansSerif');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_SansSerif-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_SansSerif-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_SansSerif-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_SansSerif');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_SansSerif-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_SansSerif-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_SansSerif-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
       </article>
 
       <hr />
@@ -63,6 +160,12 @@ on the Dataworks blog for more.</p>
           <h3>Last posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="/beyond-trending-topics.html" rel="bookmark" title="Permalink to Beyond Trending Topics: identifying important conversations in communities">Beyond Trending Topics: identifying important conversations in communities</a>
+  <time datetime="2015-09-01T12:00:00-04:00" pubdate>Tue 01 September 2015</time>
+</a>      </li>
 
 
       <li>
