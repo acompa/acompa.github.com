@@ -22,7 +22,7 @@ cp -r ~/repo/pelican-plugins/render_math ~/Dropbox/acompa.net/plugins
 
 ```
 mkvirtualenv acompa.github.com
-pip install pelican markdown
+pip install pelican markdown ghp-import
 pelican-themes -i $GITHUB_DIR/pelican-sober
 ```
 
@@ -36,4 +36,9 @@ cd ~/Dropbox/acompa.net/output
 python -m pelican.server
 ```
 
-[Then go to the local site](http://localhost:8000/).
+[Then go to the local site](http://localhost:8000/). Looks good? Then:
+
+```
+ghp-import ~/Dropbox/acompa.net/output
+git push origin gh-pages
+```
