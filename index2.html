@@ -29,32 +29,12 @@
 
 
       <article>
-        <h1><a href="/beyond-trending-topics.html">Beyond Trending Topics: identifying important conversations in communities</a></h1>
-        <p>Last summer, while at Betaworks, <a href="http://twitter.com/rj_here">Rohit Jain</a> and I co-wrote a blog
-post on detecting trending topics. Here's a blurb:</p>
-<blockquote>
-<p><a href="http://scalemodel.com">Scale Model</a>, one of the newest companies to launch out of betaworks, helps
-identify, follow and reach communities on Twitter. While there’s a great
-visual dashboard that gives us a way to look at what’s bubbling up from
-within communities, it is still hard to evaluate which items appear on a
-regular basis, and which are more unique. For example, in the <a href="http://scalemodel.com/dashboard/33/">US politics</a>
-model, the <a href="http://scalemodel.com/dashboard/shares/33/hashtags/WakeUpAmerica">#WakeUpAmerica</a> hashtag is used on a regular basis by conservatives,
-hence appears on the dashboard quite often. Wouldn’t it be great to know when
-activity around a certain hashtag is unique? Or more specifically, deviates
-from the expected behavior? Since we can’t expect users to be continuously
-glued to our dashboard, it’d be great if we could send out notifications
-whenever something important happens.</p>
-</blockquote>
-<p>Rohit and I spent quite a bit of time discussing time series decomposition and
-the messier parts of working with short-form text pulled from social network
-activity. I especially liked the use of a chat bot to check the output of a key model. Rohit
-deserves full credit for that great idea (as well as the rest of the working code).</p>
-<p>I'm not sure if this work made it into Scale Model or any of the tooling they
-offer to their clients -- I left before I could convert Rohit's prototype to
-a working service -- but this is definitely a problem Frank and his team
-continue to work on.</p>
-<p>Head on over to <a href="http://data.betaworks.com/beyond-trending-topics-identifying-important-conversations-in-communities/">the full post</a>
-on the Dataworks blog for more.</p>
+        <h1><a href="/git-for-ds-at-iheart.html">Git for data science at iHeartRadio</a></h1>
+        <p>Last year, I walked iHeartRadio's Data Science team through the theory and practice of git.</p>
+<p>Version control falls into the category of "practical stuff you learn <em>after</em> finishing grad school," and many folks -- such as <a href="http://swcarpentry.github.io/git-novice/">Software Carpentry</a>, <a href="http://treycausey.com/software_dev_skills.html">Trey Causey</a>, and <a href="http://blog.kaggle.com/2012/10/04/engineering-practices-in-data-science/">Kaggle</a> -- have written about it at length. I figured I would toss in my two cents, with a focus on our situation and goals at the time.</p>
+<p>Some context: around the time I joined iHeartRadio, collaboration within the Data Science team had been limited to analyses and dashboards. We had not operationalized much software, and most of our work lived in a single Github repository with folders named after their owners. </p>
+<p>Our team had (and continues to have!) ambitious plans for different projects, but this approach to version control didn't scale to projects with multiple owners (either within or across teams). We agreed to adopt best practices for version control, and I presented git's theory and tools for collaboration. A lot has changed since then, and we now use Jenkins and Kubernetes to test our various repositories on commit, build releases after merges to master, and push package updates to PyPI.</p>
+<p><a href="https://drive.google.com/open?id=1kz6dT2jhPqDrzQthU5WwIxy-jWYtRTpgd86tk5vYLw4">Here are the slides for my talk.</a></p>
       </article>
 
       <hr />
@@ -63,6 +43,18 @@ on the Dataworks blog for more.</p>
           <h3>Last posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="/on-regularization.html" rel="bookmark" title="Permalink to Introductory notes on regularization">Introductory notes on regularization</a>
+  <time datetime="2016-01-23T21:07:00-05:00" pubdate>Sat 23 January 2016</time>
+</a>      </li>
+
+
+      <li>
+<a href="/beyond-trending-topics.html" rel="bookmark" title="Permalink to Beyond Trending Topics: identifying important conversations in communities">Beyond Trending Topics: identifying important conversations in communities</a>
+  <time datetime="2015-09-01T12:00:00-04:00" pubdate>Tue 01 September 2015</time>
+</a>      </li>
 
 
       <li>
@@ -83,10 +75,6 @@ on the Dataworks blog for more.</p>
 </a>      </li>
 
 
-      <li>
-<a href="/using-item-response-theory-instead-of-traditional-grading-to-assess-student-proficiency.html" rel="bookmark" title="Permalink to Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency">Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency</a>
-  <time datetime="2012-07-20T18:43:00-04:00" pubdate>Fri 20 July 2012</time>
-</a>      </li>
 
 
           </ol>
