@@ -6,7 +6,7 @@
 	<meta name="author" content="Alex Companioni">
 	
 
-  <meta name="description" content="A couple of different channels converged on discussions of regularization recently: Julia Evans recently wrote about the bias-variance trade-off -- go read her post, it's great! -- and asked some questions about regularization in it; one of my coworkers -- and I'm paraphrasing here, Ravi -- called LASSO one of the most ...">
+  <meta name="description" content="A couple of different channels converged on discussions of regularization recently: Julia Evans recently wrote about the bias-variance trade-off -- go read her post, it's great! -- and asked some questions about regularization in it; one of my coworkers -- and I'm paraphrasing here, Ravi -- called LASSO one of the most important statistical …">
 
 
 
@@ -66,7 +66,7 @@
 <h2>Why regularize?</h2>
 <p>This downward nudge to <span class="math">\(\mathbf{w}\)</span> reduces the complexity of our model. Practically speaking, a lower <span class="math">\(\mathbf{w}_f\)</span> decreases the amount contributed by each feature <span class="math">\(\mathbf{x}_f\)</span> to our estimate <span class="math">\(\hat{y}\)</span>. In the extreme, <span class="math">\(\mathbf{w}_f = 0\)</span> and the feature <span class="math">\(f\)</span> contributes nothing to the estimate <span class="math">\(\hat{y}\)</span>.</p>
 <p>As Julia <a href="http://jvns.ca/blog/2016/01/02/winning-the-bias-variance-tradeoff/">suggested in her post</a>, limiting model complexity exchanges some of the error resulting from variance for some error resulting from bias. If you’re reading this post you’ve likely seen this plot a million times before — seriously, check out <a href="https://www.google.com/search?q=model+complexity+prediction+error&amp;espv=2&amp;biw=1243&amp;bih=669&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=0ahUKEwiqxcqYocHKAhUGcz4KHRj5BEcQ_AUIBigB">these Google Image results</a>, it’s everywhere — but it’s useful for understanding how your model’s complexity influences it’s generalizability:</p>
-<p><img alt="Here’s a novel plot you’ve never seen before!!11" src="/images/reg-pred-error.png" /></p>
+<p><img alt="Here’s a novel plot you’ve never seen before!!11" src="/images/reg-pred-error.png"></p>
 <p><strong>This is the first benefit of regularization: it will likely improve your model’s prediction accuracy on previously unseen data.</strong> I use the word “likely” here because you <em>could</em> be operating in the left region of that curve. If that’s the case, you might need to start engineering some features!</p>
 <p>What’s the second benefit of regularizing? I previously mentioned that regularization could actually zero our weights for some of your features. This is a nice side effective of regularization—the data helps us with model selection by zeroing out some features! <strong>That’s actually the second benefit of regularization: it helps us with model selection by only keeping those features with the strongest effects on our labels.</strong> At iHeartRadio we talk about “throwing the kitchen sink” at a modeling problem, knowing that aggressive regularization can limit the effects of spurious predictors. Simpler natural language techniques also take this path, using bag-of-word features, the LASSO, and high values of <span class="math">\(\lambda\)</span> to drop all but the most important features.</p>
 <h2>Ok, let’s regularize!</h2>
@@ -79,7 +79,7 @@
 <p>Here’s a brief explanation as to why that’s the case. The objective function <span class="math">\(L(w, x)\)</span> above can be restated as a constrained optimization problem of the form:</p>
 <div class="math">$$L(\mathbf{w}) = \sum_{i=1}^{N}(y_i  - \mathbf{w}^{T}x_i)^{2}$$</div>
 <p>subject to the constraint <span class="math">\(R(\mathbf{w}) \le \lambda\)</span>. Assume that <span class="math">\(\mathbf{w}\)</span> and <span class="math">\(x_i\)</span> are both in <span class="math">\(\mathbb{R}^2\)</span>. Since we’ve stuck with the sum of squares error, we can visualize this optimization problem as follows:</p>
-<p><img alt="I know this plot says \beta, but just ignore that. :)" src="/images/reg-opt-plots.png" /></p>
+<p><img alt="I know this plot says \beta, but just ignore that. :)" src="/images/reg-opt-plots.png"></p>
 <p>These plots show the space of possible assignments to the parameter estimate <span class="math">\(\mathbf{w}\)</span> (let’s assume the component of <span class="math">\(\beta\)</span> along each axis is instead a component of <span class="math">\(\mathbf{w}\)</span>). The blue region in each plot is the constrained space of solutions, while the red contours represent potential values of <span class="math">\(\hat{\mathbf{w}}\)</span>. We want to find the point inside the constrained space that sits on the contour closest to the solution; for the LASSO region on the left, that point is far more likely to sit along an axis, which would thus yield a sparser solution for <span class="math">\(\hat{\mathbf{w}}\)</span>.</p>
 <p>Returning to the second question, it is common to treat <span class="math">\(\lambda\)</span> as a parameter selected via grid search (just make sure to use cross-validation). You could also instead roll with the <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html">ElasticNet algorithm</a>, which regularizes your objective function using <span class="math">\(R(\mathbf{w}) = \alpha*\sum_{i=1}^{M}|\mathbf{w}_i| + (1-\alpha)*\sum_{i=1}^{M}\mathbf{w}_{i}^{2}\)</span> while adaptively choosing the best <span class="math">\(\alpha\)</span>.</p>
 <h2>Final comments</h2>
@@ -117,11 +117,9 @@
     }
 
     var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
