@@ -29,13 +29,22 @@
 
 
       <article>
-        <h1><a href="/git-for-ds-at-iheart.html">Git for data science at iHeartRadio</a></h1>
-        <p>Last year, I walked iHeartRadio's Data Science team through the theory and practice of git.</p>
-<p>Version control falls into the category of "practical stuff you learn <em>after</em> finishing grad school," and many folks -- such as <a href="http://swcarpentry.github.io/git-novice/">Software Carpentry</a>, <a href="http://treycausey.com/software_dev_skills.html">Trey Causey</a>, and <a href="http://blog.kaggle.com/2012/10/04/engineering-practices-in-data-science/">Kaggle</a> -- have written about it at length. I figured I would toss in my two cents, with a focus on our situation and goals at the time.</p>
-<p>Some context: around the time I joined iHeartRadio, collaboration within the Data Science team had been limited to analyses and dashboards. We had not operationalized much software, and most of our work lived in a single Github repository with folders named after their owners. </p>
-<p>Our team had (and continues to have!) ambitious plans for different projects, but this approach to version control didn't scale to projects with multiple owners (either within or across teams). We agreed to adopt best practices for version control, and I presented git's theory and tools for collaboration. A lot has changed since then, and we now use Jenkins and Kubernetes to test our various repositories on commit, build releases after merges to master, and push package updates to PyPI.</p>
-<p>Here are the slides for my talk:</p>
-<iframe src="https://docs.google.com/presentation/d/1kz6dT2jhPqDrzQthU5WwIxy-jWYtRTpgd86tk5vYLw4/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        <h1><a href="/scipy-2017.html">A review of SciPy 2017, including my talk on music trends</a></h1>
+        <p>Last week, I had the pleasure of speaking at SciPy 2017 in Austin about my work on modeling trends in music. Thanks to the SciPy committee and Enthought for hosting a wonderful conference with excellent speakers, and to everyone who postponed happy hour <em>just</em> a bit longer to join me and ask some great questions.</p>
+<p>Here's my talk. I hope you enjoy the memes and bad puns as much as I did!</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ifcA3xK8wsQ" frameborder="0" allowfullscreen></iframe>
+
+<p>I especially enjoyed these other talks from the conference:</p>
+<ul>
+<li>Andrew Therriault's discussion of <a href="https://www.youtube.com/watch?v=EkDsOJlpMAw">sustainable machine learning models</a>;</li>
+<li>Jake VanderPlas's candid and thorough comparison of <a href="https://www.youtube.com/watch?v=sQLmvBi8tH8&amp;list=PLYx7XA2nY5GfdAFycPLBdUDOUtdQIVoMf&amp;index=21">distributed systems used for image analysis</a>;</li>
+<li>Jim Crist's extremely useful advice on <a href="https://www.youtube.com/watch?v=mbfsog3e5DA&amp;list=PLYx7XA2nY5GfdAFycPLBdUDOUtdQIVoMf&amp;index=19">debugging and profiling Dask</a>;</li>
+<li>Gaël Varoquaux's thoughts on <a href="https://www.youtube.com/watch?v=eVDDL6tgsv8&amp;list=PLYx7XA2nY5GfdAFycPLBdUDOUtdQIVoMf&amp;index=16">scientific software development</a> (worth a listen, since he's an expert on the subject); and</li>
+<li>Peter Skipper's <a href="https://www.youtube.com/watch?v=h9mD43crH0I&amp;index=36&amp;list=PLYx7XA2nY5GfdAFycPLBdUDOUtdQIVoMf">introduction to propensity matching</a> as a tool for observational studies.</li>
+</ul>
+<p><a href="https://medium.com/@andrew.therriault/im-waiting-out-a-thunderstorm-on-my-way-back-from-austin-where-i-just-wrapped-up-my-first-scipy-67454f93f734">Like Andrew</a>, I'm also very excited to check out Andy Mueller and Alexandre Gram's <a href="https://www.youtube.com/watch?v=2kT6QOVSgSg&amp;list=PLYx7XA2nY5GfdAFycPLBdUDOUtdQIVoMf&amp;index=3">tutorial on scikit-learn</a>. The comprehensiveness of the library's documentation allows it to double as a text for an introductory machine learning course, and the only possible improvement at this point is a detailed walkthrough of those docs by two core committers.</p>
+<p>I've also bookmarked <a href="https://www.youtube.com/watch?v=mbfsog3e5DA&amp;index=19&amp;list=PLYx7XA2nY5GfdAFycPLBdUDOUtdQIVoMf">Jim Crist's tutorial on Dask</a>. The Python community seems to be consolidating around Dask as the "native Python" solution for distributed work. While I only have experience working on HDFS-based teams, it's always important to understand other solutions.</p>
+<p>In addition to these quality, hand-curated video selections, you can find the rest of the talks <a href="https://www.youtube.com/playlist?list=PLYx7XA2nY5GfdAFycPLBdUDOUtdQIVoMf">here</a>.</p>
       </article>
 
       <hr />
@@ -44,6 +53,12 @@
           <h3>Last posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="/git-for-ds-at-iheart.html" rel="bookmark" title="Permalink to Git for data science at iHeartRadio">Git for data science at iHeartRadio</a>
+  <time datetime="2017-04-17T22:43:00-04:00" pubdate>Mon 17 April 2017</time>
+</a>      </li>
 
 
       <li>
@@ -70,10 +85,6 @@
 </a>      </li>
 
 
-      <li>
-<a href="/sleeplessness-bad-code.html" rel="bookmark" title="Permalink to Sleeplessness => bad code">Sleeplessness => bad code</a>
-  <time datetime="2012-08-03T18:42:00-04:00" pubdate>Fri 03 August 2012</time>
-</a>      </li>
 
 
 
