@@ -15,7 +15,7 @@ git clone --recursive https://github.com/getpelican/pelican-plugins
 I might have to update render-math:
 
 ```
-cp -r ~/repo/pelican-plugins/render_math ~/Dropbox/acompa.net/plugins
+cp -r $GITHUB_DIR/pelican-plugins/render_math ~/Dropbox/acompa.net/plugins
 ```
 
 ## Install pelican and my theme
@@ -31,9 +31,10 @@ pelican-themes -i $GITHUB_DIR/pelican-sober
 My content lives in Dropbox. Once I've drafted a post:
 
 ```
+cd ~/Dropbox/acompa.net
 pelican content
 cd ~/Dropbox/acompa.net/output
-python -m pelican.server
+python3 -m pelican.server
 ```
 
 [Then go to the local site](http://localhost:8000/). Looks good? Then:
