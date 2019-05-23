@@ -43,11 +43,11 @@
 		<p>Python has seen a bit of an explosion in packages for statistics, machine learning, and data structures to support the two. Between <a href="pandas.pydata.org">pandas</a>, <a href="statsmodels.sourceforge.net">statsmodels</a>, <a href="scikit-learn.org">scikit-learn</a>, and <a href="http://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a> Python developers now have a miniature data stack for econometrics, machine learning algorithms, or statistics, as well as sensible data structures with tons of convenience functions.</p>
 <p>Still, those packages may not provide <em>everything</em> you need to get the job done. If, like me, you're a Python dev analyzing some time series data, you might need to visit <a href="r-project.org">an old friend</a> with excellent, full-featured statistical packages like <a href="http://cran.r-project.org/web/packages/caret/index.html">caret</a> and <a href="http://robjhyndman.com/software/forecast/">forecast</a>.</p>
 <p>You'll be happy to know that, with <a href="http://rpy.sourceforge.net/rpy2.html">rpy2</a>, you can have your cake and eat it too. Installing rpy2 can be painful, however, especially if you're working with EC2 instances on Amazon Web Services. New instances contain little or no GNU tools, making an R + rpy2 installation harder than</p>
-<div class="highlight"><pre><span></span>sudo apt-get install r-base r-base-dev python-dev python-setuptools
-sudo easy_install pip
-for pkg in numpy scipy rpy2; do
-    sudo pip install pkg
-done
+<div class="highlight"><pre><span></span><span class="nv">sudo</span> <span class="nv">apt</span><span class="o">-</span><span class="nv">get</span> <span class="nv">install</span> <span class="nv">r</span><span class="o">-</span><span class="nv">base</span> <span class="nv">r</span><span class="o">-</span><span class="nv">base</span><span class="o">-</span><span class="nv">dev</span> <span class="nv">python</span><span class="o">-</span><span class="nv">dev</span> <span class="nv">python</span><span class="o">-</span><span class="nv">setuptools</span>
+<span class="nv">sudo</span> <span class="nv">easy_install</span> <span class="nv">pip</span>
+<span class="k">for</span> <span class="nv">pkg</span> <span class="nv">in</span> <span class="nv">numpy</span> <span class="nv">scipy</span> <span class="nv">rpy2</span><span class="c1">; do</span>
+    <span class="nv">sudo</span> <span class="nv">pip</span> <span class="nv">install</span> <span class="nv">pkg</span>
+<span class="nv">done</span>
 </pre></div>
 
 
