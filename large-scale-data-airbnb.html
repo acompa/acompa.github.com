@@ -2,9 +2,13 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>On Statistics and Machine Learning</title>	
+	<title>Large-scale data-driven initiatives at Airbnb - On Statistics and Machine Learning</title>	
 	<meta name="author" content="Alex Companioni">
 	
+
+  <meta name="description" content="Any conversation about data work at Airbnb should probably start with Airflow. Since its open-sourcing back in 2015, this data pipeline framework has been adopted by almost 200 companies, including my former employers at iHeartRadio and my current employers at Devoted Health. slaps roof of framework This bad boy fits …">
+
+
 
 	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
 		
@@ -25,12 +29,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="/large-scale-data-airbnb.html">Large-scale data-driven initiatives at Airbnb</a></h1>
-        <p>Any conversation about data work at Airbnb should probably start with Airflow. Since its <a href="https://medium.com/airbnb-engineering/airflow-a-workflow-management-platform-46318b977fd8">open-sourcing back in 2015</a>, this data pipeline framework has been adopted by <a href="https://github.com/apache/incubator-airflow#who-uses-airflow">almost 200 companies</a>, including my former employers at iHeartRadio and my current employers at Devoted Health. <strong>slaps roof of framework</strong> This bad boy fits a hell of a lot of ETL jobs! It is also an example of the challenge of executing on data science initiatives at a massive scale.</p>
+	<article class="full">
+		
+		<h1>Large-scale data-driven initiatives at Airbnb</h1>
+		
+<div class="metadata">
+  <time datetime="2019-05-22T23:00:00-04:00" pubdate>Wed 22 May 2019</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/alejandro-companioni.html">Alejandro Companioni</a>
+    </address>
+  in <a href="/category/misc.html">misc</a>
+</div>		
+		<p>Any conversation about data work at Airbnb should probably start with Airflow. Since its <a href="https://medium.com/airbnb-engineering/airflow-a-workflow-management-platform-46318b977fd8">open-sourcing back in 2015</a>, this data pipeline framework has been adopted by <a href="https://github.com/apache/incubator-airflow#who-uses-airflow">almost 200 companies</a>, including my former employers at iHeartRadio and my current employers at Devoted Health. <strong>slaps roof of framework</strong> This bad boy fits a hell of a lot of ETL jobs! It is also an example of the challenge of executing on data science initiatives at a massive scale.</p>
 <p>Imagine you are asked to build a model that predicts the number of blood-testing machines your company will sell next month. This model could dramatically alter contract negotiations with your company's main client, a popular American pharmacy chain. You shape a dataset from your warehouse, train and tune a model in a Jupyter notebook, pitch it to your stakeholders, and turn it into a library covered with tests and logging (riiiiiight?). To deploy and train the model on a recurring schedule, you rely on Ansible/chef/puppet and <code>cron</code>. Easy!</p>
 <p>Now scale this to hundreds of models. Not easy! But: a data pipeline framework can help.</p>
 <p>You can now track your models on a dashboard. You run and backfill your pipelines via this dashboard or command line tools. As your pipelines increase in complexity, you can encode dependencies and refactor common ETL operations into other jobs, saving you compute time <em>and</em> the stress of job scheduling.</p>
@@ -56,57 +66,15 @@
 <p>Even Airbnb's thought leadership in data science and data infrastructure affects their scale. Their <a href="https://medium.com/airbnb-engineering/data/home">Medium blog</a> and <a href="https://medium.com/airbnb-engineering/airbnb-engineering-and-data-science-at-kdd-2018-1f53a97b896e">submissions to conferences like KDD 2018</a> market the team to talented engineers and scientists, who might then join Airbnb to help meet their scaling needs!</p>
 </li>
 </ul>
-<p>These initiatives demonstrate how Airbnb's business goals propagate through the organization to their data science and data platform groups, and how these teams deliver projects that directly impact the company's financial results. That is a significant achievement for <em>any</em> data team, much less a data team at a company with an 11-figure valuation. Airbnb serves as an example of a company whose scale justifies significant investments in data science and data infrastructure.</p>
-      </article>
+<p>These initiatives demonstrate how Airbnb's business goals propagate through the organization to their data science and data platform groups, and how these teams deliver projects that directly impact the company's financial results. That is a significant achievement for <em>any</em> data team, much less a data team at a company with an 11-figure valuation. Airbnb serves as an example of a company whose scale justifies significant investments in data science and data infrastructure.</p>	
 
-      <hr />
+	</article>
 
-        <div>
-          <h3>Last posts</h3>
-          <ol class="archive">
-    
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
 
-
-      <li>
-<a href="/recsys-2018.html" rel="bookmark" title="Permalink to A survey of ACM RecSys 2018">A survey of ACM RecSys 2018</a>
-  <time datetime="2019-01-03T14:00:00-05:00" pubdate>Thu 03 January 2019</time>
-</a>      </li>
-
-
-      <li>
-<a href="/scipy-2017.html" rel="bookmark" title="Permalink to A review of SciPy 2017, including my talk on music trends">A review of SciPy 2017, including my talk on music trends</a>
-  <time datetime="2017-07-20T15:00:00-04:00" pubdate>Thu 20 July 2017</time>
-</a>      </li>
-
-
-      <li>
-<a href="/git-for-ds-at-iheart.html" rel="bookmark" title="Permalink to Git for data science at iHeartRadio">Git for data science at iHeartRadio</a>
-  <time datetime="2017-04-17T22:43:00-04:00" pubdate>Mon 17 April 2017</time>
-</a>      </li>
-
-
-      <li>
-<a href="/on-regularization.html" rel="bookmark" title="Permalink to Introductory notes on regularization">Introductory notes on regularization</a>
-  <time datetime="2016-01-23T21:07:00-05:00" pubdate>Sat 23 January 2016</time>
-</a>      </li>
-
-
-      <li>
-<a href="/beyond-trending-topics.html" rel="bookmark" title="Permalink to Beyond Trending Topics: identifying important conversations in communities">Beyond Trending Topics: identifying important conversations in communities</a>
-  <time datetime="2015-09-01T12:00:00-04:00" pubdate>Tue 01 September 2015</time>
-</a>      </li>
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
 
 		  </div>	
 		  

@@ -29,80 +29,34 @@
 
 
       <article>
-        <h1><a href="/recsys-2018.html">A survey of ACM RecSys 2018</a></h1>
-        <p>During October I attended the 2018 edition of the ACM Recommender System Conference, or RecSys, in Vancouver. For one week, over 800 participants from various corners of industry and academia presented results and discussed trends in recommender system design. As a first-time attendee, I was impressed by</p>
-<ol>
-<li>the clever and sophisticated approaches employed by RecSys attendees to solve personalization tasks, and</li>
-<li>the willingness of these attendees to discuss their clever and sophisticated approaches in great detail.</li>
-</ol>
-<p>So: many opportunities to learn about the state-of-the-art in recommender systems! Below, I briefly survey these trends and point to further references. This survey is most useful if you're familiar with fundamental approaches to recommender systems. If you'd like a crash course, I recommend <a href="https://tech.iheart.com/mapping-the-world-of-music-using-machine-learning-part-1-9a57fa67e366">our introduction to matrix factorization at iHeartRadio</a>.</p>
-<h2>Contextual bandits were very popular</h2>
-<p>Spotify, Pandora, Netflix and Google all presented work on <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit#Contextual_bandit">contextual bandits</a>. Like <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">multi-armed bandits</a>, these models use historical data to select one of several possible actions in response to the current state; contextual bandits also add information about the current state of the system - say, data about the user's preferences for music or movie genres - to the decisionmaking process.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1600/1*-pZM9gaovP8XTrSFIPSvvg.png"></p>
-<p>I loved this chart from Spotify's work on Bart (which I discuss in greater detail below). Bandits are appealing because they can explore spaces and develop new action policies where a model is uncertain about item relevance. Exploring is expensive, and policy learning is intractable in large action spaces, so all of the applications at RecSys were limited to small actions.</p>
-<p>Three companies  -  Spotify, Pandora, and Netflix  - presented in some detail on their bandit applications to the home screen. Pandora walks us through an example, where they re-shuffle content "modules" on the home screen based on observed user preferences.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1600/1*X8VoP5o6X5XLMPVstAGOBA.png"></p>
-<p>All three companies take the same approach to model development. This Pandora slide again provides an example.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1600/1*frdJVe1WbtRhcebxZlyoAw.png"></p>
-<p>This strategy generally holds across all three cases: train multi-armed bandits offline, evaluate using mean reciprocal rank - a metric for measuring ranking quality - then confirm using A/B testing. Replace "<a href="https://en.wikipedia.org/wiki/Mean_reciprocal_rank">mean reciprocal rank</a>" with "inverse propensity score" (<a href="https://arxiv.org/pdf/1103.4601.pdf">see the introduction here for details</a>), and you have the same methodology used by Spotify and Netflix: train and evaluate bandits offline, confirm online via A/B test.</p>
-<p>In one of my favorite talks from the conference, <a href="https://dl.acm.org/authorize.cfm?key=N668665">Spotify presented Bart, a new framework</a> for producing recommendations with explanations using contextual multi-armed bandits. They applied Bart to the task of ordering "shelves" (what Pandora called "modules") on the app home screen. Offline evaluation and online experiments show that explained recommendations outperform random orderings and orderings produced by logistic regression.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1600/1*3LQ6T0ogO5sKl80TaPjBlg.png"></p>
-<p>Interestingly, Bart relies on factorization machines (2nd-order and 3rd-order). More on this later.</p>
-<p>Netflix applied contextual bandits to a very unique problem: given video content and user context, what is the optimal artwork to display for that content on the user's home page?</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1600/1*fiJCEDHbRXINgsoCYCUwng.png"></p>
-<p>I thought this was a clever use of bandits: train a bandit for each show, learn which image maximizes engagement conditional on context, then show that image. At Netflix's scale - a 12-figure company with tens of millions of subscribers - such a project could lead to millions in new revenue solely through a single-digit percentage lift in engagement. That's a cool - if very unique - opportunity.</p>
-<p>If you would like more detail on their work, I recommend <a href="https://medium.com/netflix-techblog/artwork-personalization-c589f074ad76">a previous Medium post describing this work in detail</a>.</p>
-<h2>Factorization machines: still popular</h2>
-<p>Factorization machines (FMs) are a staple at RecSys. That's not very surprising! They can be thought of as a generalization of matrix factorization (<a href="https://tech.iheart.com/mapping-the-world-of-music-using-machine-learning-part-1-9a57fa67e366">which we have blogged about before</a>) that accepts metadata along with user-item interactions to tackle varied problems. At RecSys 2016 <a href="https://www.youtube.com/watch?v=1cRGpDXTJC8">Criteo updated factorization machines with "fields"</a>, their term for pairwise tensor interactions. Spotify also uses FMs in Bart, as mentioned above, and some other folks presented FM-related work this year as well.</p>
-<p>One team finished in 3rd place in Spotify's playlist continuation challenge with <a href="https://dl.acm.org/citation.cfm?id=3267488">a two-stage approach relying in part on FMs</a>. All of their <a href="https://github.com/VasiliyRubtsov/recsys2018">code lives in Jupyter notebooks</a>, and the paper is gated, but they also relied on LightFM for their submission.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1200/1*1gxTt4-Ia3QpcJq99a4F0g.jpeg"></p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1200/1*PCyCkmiFeupJvs97E929Ag.jpeg"></p>
-<p>Anecdotally, several teams also described to me their successful experiments with LightFM. These groups are operationalizing their prototypes now.</p>
-<h2>Offline and evaluation metrics are 🆗👌</h2>
-<p>A sub-domain of recsys research focuses on <em>counterfactual evaluation</em>, or the evaluation of learned models or policies using logged data. I was excited to learn more about this work, and there were some promising developments presented in Vancouver this year.</p>
-<p>Inverse propensity scoring, as mentioned before, seems to be the go-to for evaluating contextual bandits. I've never worked with IPS before, but <a href="https://dl.acm.org/authorize?N668697">Yang et al. has a nice discussion</a> in the context of evaluating recommenders with missing-not-at-random implicit feedback.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1600/1*vGk4shsfteP6531yvhzDUw.png"></p>
-<p>This work also cites <a href="https://arxiv.org/pdf/1602.05352.pdf">Schnabel et al.</a>, which nicely reviews techniques for debiasing training data.</p>
-<p>One of my hobby horses is the use of evaluation metrics to understand algorithm performance before online experimentation, and RecSys did not disappoint here. <a href="https://dl.acm.org/authorize?N668684">A first work by Valcarce et al.</a> surveyed the resiliency of various metrics to sparsity and popularity biases along two paths: evaluate these metrics (precision, recall, MRR, etc) at K=100, and evaluate NDCG for various settings of K. This was a clever analysis with some clear takeaways, although they may not generalize.</p>
-<p>Another paper reviewed a whole collection of streaming algorithms on two news recommendation datasets (Outbrain and Plista). I really appreciated <a href="https://dl.acm.org/authorize?N668695">this paper by Jugovac et al.</a> for its exhaustive list of recommender algorithm options in streaming contexts, with performance evaluated using mean reciprocal rank and F-score@10.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1600/1*V12qyxX9Eq4HknE8aNGdFA.png"></p>
-<p>I also enjoyed <a href="https://dl.acm.org/authorize?N668670">Netflix's work on calibrated recommendations</a>. Steck proposes re-ranking recommender results using the KL-divergence between the genre distribution of the user's activity and the genre distribution of the recommender's output.</p>
-<p>slide here</p>
-<p>There are clear applications to some ongoing projects at iHeartRadio - most notably, Your Weekly Mixtape.</p>
-<h2>Lots of work relied on autoencoders</h2>
-<p>Autoencoders are an extremely powerful class of algorithms for learning representations without labels (that is, on unsupervised data). As an introduction, <a href="https://tech.iheart.com/a-generative-model-for-track-playlists-4dba8b8515c">our director of data, Brett Vintch, has previously applied them to the construction of coherent playlists</a>.</p>
-<p>Here's a laundry list of the various projects we encountered that depended on autoencoders in some form:</p>
+        <h1><a href="/large-scale-data-airbnb.html">Large-scale data-driven initiatives at Airbnb</a></h1>
+        <p>Any conversation about data work at Airbnb should probably start with Airflow. Since its <a href="https://medium.com/airbnb-engineering/airflow-a-workflow-management-platform-46318b977fd8">open-sourcing back in 2015</a>, this data pipeline framework has been adopted by <a href="https://github.com/apache/incubator-airflow#who-uses-airflow">almost 200 companies</a>, including my former employers at iHeartRadio and my current employers at Devoted Health. <strong>slaps roof of framework</strong> This bad boy fits a hell of a lot of ETL jobs! It is also an example of the challenge of executing on data science initiatives at a massive scale.</p>
+<p>Imagine you are asked to build a model that predicts the number of blood-testing machines your company will sell next month. This model could dramatically alter contract negotiations with your company's main client, a popular American pharmacy chain. You shape a dataset from your warehouse, train and tune a model in a Jupyter notebook, pitch it to your stakeholders, and turn it into a library covered with tests and logging (riiiiiight?). To deploy and train the model on a recurring schedule, you rely on Ansible/chef/puppet and <code>cron</code>. Easy!</p>
+<p>Now scale this to hundreds of models. Not easy! But: a data pipeline framework can help.</p>
+<p>You can now track your models on a dashboard. You run and backfill your pipelines via this dashboard or command line tools. As your pipelines increase in complexity, you can encode dependencies and refactor common ETL operations into other jobs, saving you compute time <em>and</em> the stress of job scheduling.</p>
+<p><img alt="" src="https://i.imgur.com/JaLIQ8I.png"></p>
+<p><img alt="" src="https://i.imgur.com/PHPTJvt.png"></p>
+<p>Building a data pipeline framework requires months of engineering time. That's a significant investment -- almost ~~100~~ ~~3.5~~ 10,000 Bitcoins! The goal of this investment, like any other, is to generate a nice return. At the scale of Airbnb's data operations - <a href="https://www.youtube.com/watch?v=6QVXPNrSbLU">about 150 data scientists and engineers, over 18 petabytes of data on HDFS</a> - this return is guaranteed. A properly-designed framework saves this team many hours of work operationalizing each model and ETL job. Add this up over all active data projects, and even a multi-quarter, multi-engineer effort to build a data pipeline framework yields positive returns very quickly.</p>
+<p><a href="https://www.nytimes.com/2016/06/29/business/dealbook/airbnb-is-said-to-be-seeking-funding-valuing-it-at-30-billion.html?_r=0">Airbnb is a $30 billion company</a> that relies on scale to develop an insurmountable advantage over their competitors in the travel business. Ben Thompson summarizes this nicely <a href="https://stratechery.com/2015/aggregation-theory/">when outlining aggregation theory on Stratechery</a>, his excellent newsletter and website:</p>
+<blockquote>
+<p>Airbnb and the sharing economy have commoditized trust, enabling a new business model based on aggregating resources and managing the customer relationship [...] Airbnb is integrating property management and customer management, enabling it to scale worldwide.</p>
+</blockquote>
+<p>"Oh wow, Alex. 'VC-backed company takes funding, hopes to outgrow its competitors' - what an insight!" This is not exactly novel analysis, but consider Airbnb's data investments in the context of the company's goals. Scale and aggregation are Airbnb's competitive advantages in the travel industry. It is notable, then, that many of their publicly-discussed data projects bolster this advantage. Consider:</p>
 <ul>
 <li>
-<p><a href="https://arxiv.org/abs/1809.00999">Towards Large Scale Training Of Autoencoders For Collaborative Filtering</a></p>
+<p><a href="https://medium.com/airbnb-engineering/fighting-financial-fraud-with-targeted-friction-82d950d8900e">By building classifiers to identify fraudulent transactions</a>, Airbnb provides hosts with confidence in their revenue streams. Meanwhile, <a href="https://medium.com/airbnb-engineering/listing-embeddings-for-similar-listing-recommendations-and-real-time-personalization-in-search-601172f7603e">optimizing search results using embeddings</a> decreases friction in trip-planning and encourages guests to use Airbnb again in the future. Both of these features improve host-to-guest matching, so that Airbnb continues aggregating supply and demand for travel.</p>
 </li>
 <li>
-<p><a href="http://dlrs-workshop.org/wp-content/uploads/2018/10/karamanolakis_mvae_dlrs2018.pdf">Item Recommendation with Variational Autoencoders and Heterogenous Priors</a></p>
+<p>Significant investments in online experimentation, most notably <a href="https://medium.com/airbnb-engineering/https-medium-com-jonathan-parks-scaling-erf-23fd17c91166">an experimentation framework</a>, increase the velocity with which Airbnb tests and launches new features. This leads to faster turnaround on product feedback from hosts and guests. Meanwhile, the data team spends less time launching and monitoring A/B tests, a process which can be excruciating (as I'm sure you know!).</p>
 </li>
 <li>
-<p><a href="http://dlrs-workshop.org/wp-content/uploads/2018/10/yifan_chen_cvae.pdf">A Collective Variational Autoencoder for Top-N Recommendation with Side Information</a></p>
+<p>Airbnb has also open-sourced several tools for data infrastructure. In addition to Airflow, I've also heard great things about <a href="https://medium.com/airbnb-engineering/superset-scaling-data-access-and-visual-insights-at-airbnb-3ce3e9b88a7f?source=collection_category---5------7---------------------">Superset</a> - a tool that simplifies data analysis for users without warehouse access - as well.</p>
 </li>
 <li>
-<p><a href="https://www.slideshare.net/HojinYang3/mmcf-multimodal-collaborative-filtering-for-automatic-playlist-conitnuation">MMCF: Multimodal Collaborative Filtering for Automatic Playlist Continuation</a></p>
+<p>Even Airbnb's thought leadership in data science and data infrastructure affects their scale. Their <a href="https://medium.com/airbnb-engineering/data/home">Medium blog</a> and <a href="https://medium.com/airbnb-engineering/airbnb-engineering-and-data-science-at-kdd-2018-1f53a97b896e">submissions to conferences like KDD 2018</a> market the team to talented engineers and scientists, who might then join Airbnb to help meet their scaling needs!</p>
 </li>
 </ul>
-<h2>Industry talks I enjoyed</h2>
-<p>As a data person employed in industry, I like to attend industry talks because they cover industry challenges -  adopting frameworks, applying business logic, and accounting for changes in user behavior  -  that I am responsible for solving in industry. On that note, I really enjoyed these presentations:</p>
-<ul>
-<li>
-<p>Netflix: calibrated recommendations and artwork recommendations.</p>
-</li>
-<li>
-<p>realtor.com on using fast.ai and PyTorch for <a href="https://dl.acm.org/citation.cfm?id=3241728">transfer learning using autoencoders</a>, especially applied to search re-ranking. As far as I know, slides are not publicly available, but they might go up soon.</p>
-</li>
-<li>
-<p>Slack on developing models with strict privacy boundaries. Bonus: they use <em>really</em> simple algorithms.</p>
-</li>
-</ul>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/1200/1*DVTO-hM-GS6x6U7nZqXXmQ.png"></p>
-<h2>RecSys 2018: A+ would recommend</h2>
-<p>All in all, RecSys 2018 was an extremely rewarding experience. A healthy presence from both academic and industry researchers produced a slate of presentations with a healthy mix of cutting-edge algorithms and production-grade systems. I had an opportunity to reinforce my understanding of fundamental recommender systems concepts and learn about the latest trends in the space. <a href="https://recsys.acm.org/recsys19/">The 2019 edition will be hosted in Copenhagen</a>, and the call for submissions closes in April - I highly recommend participating, whether you are interested in learning something new or presenting your most recent work.</p>
-<p>Lastly, if you are interested in learning more about music recommendations or building a streaming music service, make sure to <a href="http://jobs.iheart.com/">check out open positions on our jobs page</a>!</p>
+<p>These initiatives demonstrate how Airbnb's business goals propagate through the organization to their data science and data platform groups, and how these teams deliver projects that directly impact the company's financial results. That is a significant achievement for <em>any</em> data team, much less a data team at a company with an 11-figure valuation. Airbnb serves as an example of a company whose scale justifies significant investments in data science and data infrastructure.</p>
       </article>
 
       <hr />
@@ -111,6 +65,12 @@
           <h3>Last posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="/recsys-2018.html" rel="bookmark" title="Permalink to A survey of ACM RecSys 2018">A survey of ACM RecSys 2018</a>
+  <time datetime="2019-01-03T14:00:00-05:00" pubdate>Thu 03 January 2019</time>
+</a>      </li>
 
 
       <li>
@@ -137,10 +97,6 @@
 </a>      </li>
 
 
-      <li>
-<a href="/presenting-leptoid-at-surge-2012.html" rel="bookmark" title="Permalink to Presenting leptoid at Surge 2012">Presenting leptoid at Surge 2012</a>
-  <time datetime="2012-10-05T17:11:00-04:00" pubdate>Fri 05 October 2012</time>
-</a>      </li>
 
 
 
