@@ -1,0 +1,41 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props as Props;
+const pageTitle = title ? `${title} · acompa` : 'acompa blog';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description ?? 'Stories and notes from acompa'} />
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">acompa</a>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/posts">Posts</a>
+          <a href="https://acompa.net">acompa.net</a>
+        </nav>
+      </div>
+    </header>
+    <main class="site-main">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>© {new Date().getFullYear()} acompa. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "acompa-astro-blog",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "deploy:staging": "npm run build && gh workflow run deploy-staging.yml",
+    "deploy:prod": "npm run build && gh workflow run deploy-prod.yml"
+  },
+  "dependencies": {
+    "astro": "^5.14.5",
+    "@astrojs/rss": "^4.0.6",
+    "@astrojs/github-pages": "file:integrations/github-pages"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.8.0",
+    "typescript": "^5.6.2"
+  }
+}

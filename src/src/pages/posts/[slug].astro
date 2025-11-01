@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const entry = slug ? await getEntry('blog', slug) : null;
+
+if (!entry) {
+  throw new Error(`Unable to locate post for slug: ${slug}`);
+}
+
+const { Content } = await entry.render();
+const { data } = entry;
+---
+<BaseLayout title={data.title} description={data.description}>
+  <article class="prose">
+    <header>
+      <p>
+        <time datetime={data.pubDate.toISOString()}>{data.pubDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}</time>
+      </p>
+      <h1>{data.title}</h1>
+      {data.updatedDate && (
+        <p class="updated-date">Updated {data.updatedDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}</p>
+      )}
+    </header>
+    <Content />
+  </article>
+</BaseLayout>
