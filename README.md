@@ -1,45 +1,71 @@
-# How to blog on acompa.net
+# acompa.net
 
-## Clone my website and theme
+Personal blog built with [Astro](https://astro.build/) and deployed to GitHub Pages.
 
-[Quickstart for Pelican](http://docs.getpelican.com/en/3.6.3/quickstart.html).
+## Setup
 
 ```
-GITHUB_DIR=~/repo    # change this!
-cd $GITHUB_DIR
-git clone https://github.com/acompa/pelican-sober
 git clone git@github.com:acompa/acompa.github.com.git
-git clone --recursive https://github.com/getpelican/pelican-plugins
+cd acompa.github.com/src
+npm install
 ```
 
-I might have to update render-math:
+## Local development
 
 ```
-cp -r $GITHUB_DIR/pelican-plugins/render_math ~/Dropbox/acompa.net/plugins
+cd src
+npm run dev
 ```
 
-## Install pelican and my theme
+Visit [http://localhost:4321](http://localhost:4321).
 
-```
-mkvirtualenv acompa.github.com
-pip install pelican markdown ghp-import
-pelican-themes -i $GITHUB_DIR/pelican-sober
-```
+## Writing a new post
 
-## Testing locally
+Add a Markdown file to `src/src/content/blog/` with YAML frontmatter:
 
-My content lives in Dropbox. Once I've drafted a post:
+```markdown
+---
+title: "Post title"
+description: "A short summary for RSS and meta tags."
+pubDate: 2026-02-22
+---
 
-```
-cd ~/Dropbox/acompa.net
-pelican content
-cd ~/Dropbox/acompa.net/output
-python3 -m pelican.server
+Post content here.
 ```
 
-[Then go to the local site](http://localhost:8000/). Looks good? Then:
+Posts render at `/posts/{slug}/` where the slug is the filename without `.md`.
+
+LaTeX is supported via remark-math and rehype-katex: use `$...$` for inline math and `$$...$$` for display math.
+
+## Building
 
 ```
-ghp-import ~/Dropbox/acompa.net/output
-git push origin gh-pages
+cd src
+npm run build
+```
+
+Output goes to `src/dist/`.
+
+## Deploying
+
+Pushes to `main` automatically deploy to production via GitHub Actions. There is also a `staging` branch/environment. To trigger a deploy manually:
+
+```
+cd src
+npm run deploy:prod    # or deploy:staging
+```
+
+## Project structure
+
+```
+src/
+  src/
+    content/blog/   # Markdown blog posts
+    layouts/        # BaseLayout.astro
+    pages/          # index, /posts, /posts/[slug], rss.xml
+  public/
+    images/         # Local post images
+    styles/         # global.css
+  astro.config.mjs  # Site config, redirects, markdown plugins
+  package.json
 ```

@@ -7,18 +7,16 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 <BaseLayout title="All posts" description="An archive of writing from acompa.">
-  <section class="post-grid">
+  <section class="post-list">
     {posts.map((post) => (
-      <article class="post-card">
-        <a href={`/posts/${post.slug}/`}>
-          <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}</time>
-          <h2>{post.data.title}</h2>
-          <p>{post.data.description}</p>
-        </a>
+      <article class="post-item">
+        <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}</time>
+        <h2><a href={`/posts/${post.slug}/`}>{post.data.title}</a></h2>
+        <p>{post.data.description}</p>
       </article>
     ))}
   </section>

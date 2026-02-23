@@ -1,24 +1,69 @@
+/* ── Custom properties ── */
+
 :root {
-  color-scheme: light dark;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #f5f5f5;
-  color: #222;
+  --bg: #fffaf7;
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --accent: #762423;
+  --accent-hover: #5a1b1a;
+  --border: rgba(0, 0, 0, 0.1);
+  --code-bg: #f5f2ef;
+  --card-bg: #fdf8f4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161616;
+    --text: #e0ddd8;
+    --text-muted: #9a9a9a;
+    --accent: #c9544e;
+    --accent-hover: #e0625b;
+    --border: rgba(255, 255, 255, 0.1);
+    --code-bg: #1e1e1e;
+    --card-bg: #1e1e1e;
+  }
+}
+
+/* ── Base reset & typography ── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, rgba(250,250,250,1) 0%, rgba(243,243,243,1) 100%);
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Bitter', Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  line-height: 1.85;
+  border-top: 12px solid var(--accent);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Overpass Mono', 'Courier New', monospace;
+  line-height: 1.3;
+}
+
+/* ── Links ── */
+
 a {
-  color: inherit;
+  color: var(--accent);
   text-decoration: none;
 }
 
 a:hover {
+  color: var(--accent-hover);
   text-decoration: underline;
 }
+
+a:visited {
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+/* ── Layout ── */
 
 .container {
   margin: 0 auto;
@@ -26,9 +71,11 @@ a:hover {
   padding: 0 1.5rem;
 }
 
+/* ── Header ── */
+
 .site-header {
-  background: white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
 
 .site-header .container {
@@ -37,83 +84,210 @@ a:hover {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-between;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.site-header .brand {
+  font-family: 'Overpass Mono', 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text);
+  opacity: 1;
+}
+
+.site-header .brand:visited {
+  color: var(--text);
+  opacity: 1;
 }
 
 .site-header nav {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
+  font-family: 'Overpass Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
   font-weight: 500;
 }
+
+.site-header nav a {
+  color: var(--text-muted);
+}
+
+.site-header nav a:visited {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.site-header nav a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ── Main ── */
 
 .site-main {
   padding: 3rem 0 4rem;
 }
 
+/* ── Footer ── */
+
 .site-footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  font-size: 0.9rem;
-  padding: 2rem 0;
-  background: white;
-}
-
-.post-grid {
-  display: grid;
-  gap: 2rem;
-}
-
-.post-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
-  padding: 2rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
-}
-
-.post-card time {
-  color: #6b7280;
-  display: block;
+  border-top: 1px solid var(--border);
   font-size: 0.85rem;
-  margin-bottom: 0.75rem;
+  padding: 2rem 0;
+  color: var(--text-muted);
 }
 
-.post-card h2 {
-  font-size: 1.6rem;
-  margin: 0 0 0.75rem;
-}
+/* ── Post list ── */
 
-.post-card p {
-  line-height: 1.6;
+.post-list {
+  list-style: none;
   margin: 0;
-  color: #4b5563;
+  padding: 0;
 }
+
+.post-item {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-item:first-child {
+  padding-top: 0;
+}
+
+.post-item:last-child {
+  border-bottom: none;
+}
+
+.post-item time {
+  display: block;
+  font-family: 'Overpass Mono', 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.post-item h2 {
+  font-size: 1.2rem;
+  margin: 0 0 0.4rem;
+}
+
+.post-item h2 a {
+  color: var(--text);
+}
+
+.post-item h2 a:visited {
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.post-item h2 a:hover {
+  color: var(--accent);
+}
+
+.post-item p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ── Prose (post body) ── */
 
 .prose {
-  color: #111827;
-  font-size: 1.05rem;
-  line-height: 1.8;
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1.85;
 }
 
-.prose h1,
-.prose h2,
+.prose h1, .prose h2, .prose h3 {
+  color: var(--text);
+  margin-top: 2.5rem;
+}
+
+.prose h1 {
+  font-size: 1.75rem;
+}
+
+.prose h2 {
+  font-size: 1.4rem;
+}
+
 .prose h3 {
-  color: #0f172a;
+  font-size: 1.15rem;
+}
+
+.prose p {
+  margin-bottom: 1.5rem;
+}
+
+.prose a {
+  color: var(--accent);
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 1.5rem 0;
+  padding: 0.25rem 1.25rem;
+  font-style: italic;
+  color: var(--text-muted);
 }
 
 .prose pre {
-  background: #0f172a;
-  border-radius: 8px;
-  color: #f8fafc;
+  background: var(--code-bg);
+  border-radius: 6px;
   overflow-x: auto;
-  padding: 1rem;
+  padding: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.prose code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.9em;
+}
+
+.prose :not(pre) > code {
+  background: var(--code-bg);
+  border-radius: 3px;
+  padding: 0.15em 0.35em;
 }
 
 .prose img {
-  border-radius: 8px;
+  border-radius: 6px;
   max-width: 100%;
+  height: auto;
+}
+
+.prose iframe {
+  max-width: 100%;
+}
+
+.prose ul, .prose ol {
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+}
+
+.prose .updated-date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.prose header time {
+  font-family: 'Overpass Mono', 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ── Shiki dual-theme toggle ── */
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
 }
