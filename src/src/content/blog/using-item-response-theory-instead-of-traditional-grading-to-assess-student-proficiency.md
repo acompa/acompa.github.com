@@ -1,6 +1,6 @@
 ---
 title: "Using Item Response Theory Instead of Traditional Grading to Assess Student Proficiency"
-description: "This post is reproduced from Knewton's tech blog, where I posted it a few months ago. Imagine for a second that you’re teaching a math remediation course full of fourth graders. You’ve just administered a test with 10 questions. Of those 10 questions, two questions are trivial, two …"
+description: "Why traditional grading ignores question difficulty, and how item response theory offers a better measure of student ability."
 pubDate: 2012-07-20
 ---
 

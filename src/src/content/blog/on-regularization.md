@@ -1,6 +1,6 @@
 ---
 title: "Introductory notes on regularization"
-description: "A couple of different channels converged on discussions of regularization recently: Julia Evans recently wrote about the bias-variance trade-off -- go read her post, it's great! -- and asked some questions about regularization in it; one of my coworkers -- and I'm paraphrasing here, Ravi -- called LASSO one of the most important statistical …"
+description: "A primer on L1, L2, and ElasticNet regularization and why they help models generalize."
 pubDate: 2016-01-23
 ---
 

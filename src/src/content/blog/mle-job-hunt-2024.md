@@ -1,6 +1,6 @@
 ---
 title: "On job-hunting in 2024 as a machine learning engineer"
-description: "One Sunday in early December, I celebrated my birthday by slicing into some chocolate cake from a local bakery. A few hours later, my inbox contained a lovely birthday surprise: a calendar invite to discuss my layoff from Spotify. Yay! For those who don't know me: I am a machine …"
+description: "Lessons from 39 job conversations after a layoff from Spotify, and what the market looks like for ML engineers in 2024."
 pubDate: 2024-03-02
 ---
 

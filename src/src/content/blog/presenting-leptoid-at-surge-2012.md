@@ -1,6 +1,6 @@
 ---
 title: "Presenting leptoid at Surge 2012"
-description: "I spent my summer at Knewton working on an autoscaling project. I learned a lot along the way about capacity planning, queuing theory, code instrumentation, and server management and deployment, and I recently presented about what I learned at Surge Conference 2012. The talk focused on instrumentation more than anything …"
+description: "Presenting an autoscaling project at Surge 2012 and learning that good instrumentation matters more than a good forecasting model."
 pubDate: 2012-10-05
 ---
 

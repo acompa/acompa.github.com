@@ -1,6 +1,6 @@
 ---
 title: "Sleeplessness => bad code"
-description: "David Smith recently pushed out an excellent episode of his Developing Perspectives podcast. In it, he discusses the importance of rest, especially as it relates to the quality of a developer's work."
+description: "How sleep deprivation during a busy summer led to silly bugs in a toy virtual memory manager."
 pubDate: 2012-08-03
 ---
 

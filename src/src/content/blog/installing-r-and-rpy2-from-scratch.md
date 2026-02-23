@@ -1,6 +1,6 @@
 ---
 title: "Installing R and rpy2 from scratch"
-description: "Python has seen a bit of an explosion in packages for statistics, machine learning, and data structures to support the two. Between pandas, statsmodels, scikit-learn, and scipy.stats Python developers now have a miniature data stack for econometrics, machine learning algorithms, or statistics, as well as sensible data structures with …"
+description: "A step-by-step guide to installing R and rpy2 on a bare EC2 instance for Python developers who need R's statistical packages."
 pubDate: 2012-09-07
 ---
 

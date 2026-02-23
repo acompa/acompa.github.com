@@ -1,6 +1,6 @@
 ---
 title: "Beyond Trending Topics: identifying important conversations in communities"
-description: "Last summer, while at Betaworks, Rohit Jain and I co-wrote a blog post on detecting trending topics. Here's a blurb: Scale Model, one of the newest companies to launch out of betaworks, helps identify, follow and reach communities on Twitter. While there’s a great visual dashboard that gives us …"
+description: "Detecting unusual spikes in Twitter community activity using time series decomposition, built at Betaworks with Rohit Jain."
 pubDate: 2015-09-01
 ---
 

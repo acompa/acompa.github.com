@@ -1,6 +1,6 @@
 ---
 title: "A review of SciPy 2017, including my talk on music trends"
-description: "Last week, I had the pleasure of speaking at SciPy 2017 in Austin about my work on modeling trends in music. Thanks to the SciPy committee and Enthought for hosting a wonderful conference with excellent speakers, and to everyone who postponed happy hour just a bit longer to join me …"
+description: "Speaking at SciPy 2017 about modeling trends in music, plus highlights from other talks at the conference."
 pubDate: 2017-07-20
 ---
 

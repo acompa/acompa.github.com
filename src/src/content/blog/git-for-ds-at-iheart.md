@@ -1,6 +1,6 @@
 ---
 title: "Git for data science at iHeartRadio"
-description: "Last year, I walked iHeartRadio's Data Science team through the theory and practice of git. Version control falls into the category of practical stuff you learn after finishing grad school."
+description: "Teaching git fundamentals to iHeartRadio's algorithms team to scale collaboration beyond single-owner folders."
 pubDate: 2017-04-17
 ---
 

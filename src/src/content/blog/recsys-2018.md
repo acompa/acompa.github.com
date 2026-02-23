@@ -1,6 +1,6 @@
 ---
 title: "A survey of ACM RecSys 2018"
-description: "During October I attended the 2018 edition of the ACM Recommender System Conference, or RecSys, in Vancouver. For one week, over 800 participants from various corners of industry and academia presented results and discussed trends in recommender system design. As a first-time attendee, I was impressed by the clever and …"
+description: "Trends from RecSys 2018: contextual bandits, deep learning for recommendations, and fairness in personalization."
 pubDate: 2019-01-03
 ---
 

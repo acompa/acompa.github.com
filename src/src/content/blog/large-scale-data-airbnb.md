@@ -1,6 +1,6 @@
 ---
 title: "Large-scale data-driven initiatives at Airbnb"
-description: "Any conversation about data work at Airbnb should probably start with Airflow. Since its open-sourcing back in 2015, this data pipeline framework has been adopted by almost 200 companies, including my former employers at iHeartRadio and my current employers at Devoted Health. slaps roof of framework This bad boy fits …"
+description: "How Airbnb scaled its data infrastructure with Airflow, Zipline, and other frameworks for ML at hundreds-of-models scale."
 pubDate: 2019-05-22
 ---
 
