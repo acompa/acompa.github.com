@@ -33,7 +33,7 @@ During our testing I observed three concrete limitations in DSPy:
 
 ## Conflicting concurrency
 
-Both of my team's attempts at integrating DSPy into live workflows involved distributed, asynchronous training and dynamic model-switching via Celery with `gevent`. We abandoned DSPy shortly after encountering [this](https://github.com/stanfordnlp/dspy/blob/main/dspy/dsp/utils/settings.py#L159-L163) configuration issue:
+Both of my team's attempts at integrating DSPy into live workflows involved distributed, asynchronous training and dynamic model-switching via Celery with `gevent`. Users switch LMs via `dspy.configure`, but we encountered [this](https://github.com/stanfordnlp/dspy/blob/main/dspy/dsp/utils/settings.py#L159-L163) configuration issue:
 
 ```python
 if not in_ipython and config_owner_async_task != asyncio.current_task():
@@ -43,7 +43,7 @@ if not in_ipython and config_owner_async_task != asyncio.current_task():
 	)
 ```
 
-As suggested, we treed `dspy.context` to avoid async task conflicts. But every model switch required context managers, [as demonstrated by this example snippet](https://github.com/stanfordnlp/dspy/blob/main/docs/docs/tutorials/cache/index.md?plain=1#L178-L181):
+As suggested, we tried `dspy.context` to avoid async task conflicts. But every model switch required context managers, [as demonstrated by this example snippet](https://github.com/stanfordnlp/dspy/blob/main/docs/docs/tutorials/cache/index.md?plain=1#L178-L181):
 
 ```python
 with dspy.context(lm=dspy.LM("openai/gpt-5-mini")):
@@ -53,7 +53,7 @@ with dspy.context(lm=dspy.LM("openai/gpt-5-nano")):
     result2 = predict(question="Who do *you* think is the GOAT of soccer?")
 ```
 
-In a Markdown doc or Jupyter notebook this reads fine. In a production codebase this practically _invites_ bugs.
+In a Markdown doc or Jupyter notebook this reads fine. In a production codebase this practically _invites_ bugs. We abandoned both efforts shortly thereafter.
 
 While DSPy 3.0 shipped async improvements, [limitations in configurability](https://github.com/stanfordnlp/dspy/issues/8197) and async support still persist:
 - program training still [requires a synchronous context](https://github.com/stanfordnlp/dspy/issues/9075)
